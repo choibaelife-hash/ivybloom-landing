@@ -1,0 +1,36 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+
+# Sanity
+.sanity/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vercel
+.vercel
+
+# Superpowers (Claude Code 내부 도구)
+.superpowers/
+.superpowers.yml
+
+# TypeScript build cache
+tsconfig.tsbuildinfo
+
+# Root-level screenshots
+스크린샷*.png
