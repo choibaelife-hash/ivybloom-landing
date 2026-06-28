@@ -1,15 +1,15 @@
 const problems = [
   {
-    heading: "GPA alone won't get you in",
-    body: 'Top universities look far beyond grades. Without a strategic narrative, even strong students get passed over.',
+    heading: 'Strong credentials are not enough without strategy',
+    body: "Parents ask us one question more than any other: \"Is my child's profile good enough to get in?\" The answer almost never depends on GPA alone — it depends on how the application is built around the student's specific strengths.",
   },
   {
-    heading: 'Essay strategy is where most students fail',
-    body: "The Common App and supplement essays are your chance to stand out — but most students don't know what admissions officers actually want to read.",
+    heading: 'Essays are where most applications win or lose',
+    body: 'Admissions officers read thousands of applications. A formulaic essay — even a well-written one — disappears into the pile. What gets noticed is a genuine narrative that shows exactly who the student is.',
   },
   {
-    heading: 'The process feels overwhelming without guidance',
-    body: 'Deadlines, school lists, interviews, financial aid — navigating US admissions alone is a full-time job.',
+    heading: 'The admissions process is a full-time job',
+    body: 'School list, test scores, application forms, supplement essays, Parent Essays for boarding schools, deadlines — managing it all without guidance means something important will be missed.',
   },
 ]
 

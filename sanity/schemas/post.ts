@@ -145,6 +145,24 @@ export const postType = defineType({
       initialValue: false,
       group: 'seo',
     }),
+    defineField({
+      name: 'schemaOrgType',
+      title: 'Schema.org Type',
+      description: '구글 리치 결과 타입 — 미입력 시 BlogPosting 적용',
+      type: 'string',
+      group: 'seo',
+      initialValue: 'BlogPosting',
+      options: {
+        list: [
+          { title: 'BlogPosting (기본)', value: 'BlogPosting' },
+          { title: 'Article',            value: 'Article' },
+          { title: 'FAQPage',            value: 'FAQPage' },
+          { title: 'Course',             value: 'Course' },
+          { title: 'Service',            value: 'Service' },
+        ],
+        layout: 'radio',
+      },
+    }),
 
     // ── Social ───────────────────────────────────────────────
     defineField({

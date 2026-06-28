@@ -8,7 +8,7 @@ import CTASection from '@/components/CTASection'
 import { client } from '@/sanity/client'
 import { postBySlugQuery, allSlugsQuery } from '@/sanity/queries'
 import { urlFor } from '@/sanity/lib/image'
-import { blogPostingSchema, faqPageSchema } from '@/lib/structured-data'
+import { buildSchemaOrgJsonLd } from '@/lib/structured-data'
 
 const SITE_URL = 'https://ivybloomconsulting.com'
 const KAKAO_URL = 'https://pf.kakao.com/_ybbloom'
@@ -33,6 +33,7 @@ type Post = {
   keywords?: string[]
   canonical?: string
   noindex?: boolean
+  schemaOrgType?: string
   twitterTitle?: string
   twitterDescription?: string
   faqSection?: FaqItem[]
@@ -118,7 +119,7 @@ export default async function BlogPostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            blogPostingSchema({
+            buildSchemaOrgJsonLd({
               title: post.title,
               publishedAt: post.publishedAt,
               excerpt: post.excerpt,
@@ -126,18 +127,13 @@ export default async function BlogPostPage({ params }: Props) {
               author: post.author,
               imageUrl: imageUrl ?? undefined,
               keywords: post.keywords,
+              schemaOrgType: post.schemaOrgType,
+              faqSection: post.faqSection,
+              basePath: 'blog',
             })
           ),
         }}
       />
-      {hasFaq && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(faqPageSchema(post.faqSection!)),
-          }}
-        />
-      )}
       <Nav />
       <main className="pt-16">
         {imageUrl && (

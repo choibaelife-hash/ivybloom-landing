@@ -43,6 +43,7 @@ export const postBySlugQuery = groq`
     keywords,
     canonical,
     noindex,
+    schemaOrgType,
     twitterTitle,
     twitterDescription,
     "faqSection": faqSection[] { question, answer }

@@ -34,3 +34,9 @@ tsconfig.tsbuildinfo
 
 # Root-level screenshots
 스크린샷*.png
+
+# build output
+dist/
+
+# client data files
+*.xlsx

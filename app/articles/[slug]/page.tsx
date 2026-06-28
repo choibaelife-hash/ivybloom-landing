@@ -8,7 +8,7 @@ import CTASection from '@/components/CTASection'
 import { client } from '@/sanity/client'
 import { postBySlugQuery, allSlugsQuery } from '@/sanity/queries'
 import { urlFor } from '@/sanity/lib/image'
-import { articleSchema } from '@/lib/structured-data'
+import { buildSchemaOrgJsonLd } from '@/lib/structured-data'
 
 const KAKAO_URL = 'https://pf.kakao.com/_ybbloom'
 
@@ -65,11 +65,14 @@ export default async function ArticlePage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
-            articleSchema({
+            buildSchemaOrgJsonLd({
               title: post.title,
               publishedAt: post.publishedAt,
               excerpt: post.excerpt,
               slug: params.slug,
+              schemaOrgType: post.schemaOrgType,
+              faqSection: post.faqSection,
+              basePath: 'articles',
             })
           ),
         }}

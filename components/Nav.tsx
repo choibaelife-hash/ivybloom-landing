@@ -5,6 +5,14 @@ import { useState } from 'react'
 
 const KAKAO_URL = 'https://pf.kakao.com/_ybbloom'
 
+const links = [
+  { href: '/',         label: 'Home'     },
+  { href: '/services', label: 'Services' },
+  { href: '/results',  label: 'Results'  },
+  { href: '/articles', label: 'Articles' },
+  { href: '/contact',  label: 'Contact'  },
+]
+
 export default function Nav() {
   const [open, setOpen] = useState(false)
 
@@ -17,12 +25,15 @@ export default function Nav() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="#services" className="text-sm text-brand-dark/70 hover:text-brand-burgundy transition-colors">
-            Services
-          </Link>
-          <Link href="/articles" className="text-sm text-brand-dark/70 hover:text-brand-burgundy transition-colors">
-            Articles
-          </Link>
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="text-sm text-brand-dark/70 hover:text-brand-burgundy transition-colors"
+            >
+              {l.label}
+            </Link>
+          ))}
           <a
             href={KAKAO_URL}
             target="_blank"
@@ -51,12 +62,16 @@ export default function Nav() {
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden bg-brand-cream border-t border-brand-border px-4 py-4 flex flex-col gap-4">
-          <Link href="#services" className="text-sm text-brand-dark/70" onClick={() => setOpen(false)}>
-            Services
-          </Link>
-          <Link href="/articles" className="text-sm text-brand-dark/70" onClick={() => setOpen(false)}>
-            Articles
-          </Link>
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="text-sm text-brand-dark/70"
+              onClick={() => setOpen(false)}
+            >
+              {l.label}
+            </Link>
+          ))}
           <a
             href={KAKAO_URL}
             target="_blank"

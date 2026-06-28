@@ -7,27 +7,32 @@ const faqs: FaqItem[] = [
   {
     question: 'What is IVY BLOOM CONSULTING?',
     answer:
-      'IVY BLOOM CONSULTING is a US college and boarding school admissions consulting firm specializing in Korean-American students. We provide personalized strategy, essay coaching, and end-to-end application support.',
+      'IVY BLOOM CONSULTING is a US college and boarding school admissions consulting firm founded in 2019. With 15 years of experience, we help Grade 7–11 students — including international students and US residents — build applications that get noticed. We specialize in school list strategy, application positioning, and essay development.',
   },
   {
-    question: 'How does the consulting process work?',
+    question: 'How does online consulting work?',
     answer:
-      'We start with a free consultation to understand your goals and background. From there, we build a customized school list, develop your application narrative, coach you through essays, and support you through submission and decision.',
+      'All consulting is conducted online via video call (Zoom or similar). After an initial consultation, we schedule regular sessions for school list review, application strategy, and essay feedback. Everything is managed remotely, making it accessible to students anywhere in the world.',
   },
   {
-    question: 'How much does IVY BLOOM CONSULTING cost?',
+    question: 'What does the consulting process look like step by step?',
     answer:
-      'Pricing varies by service package and level of support. Please reach out via KakaoTalk for a personalized quote.',
+      'It starts with a consultation request via KakaoTalk or the inquiry form. You will then complete a brief questionnaire so we can review your profile before our first meeting. The initial consultation is 2 hours and covers your background, goals, and school fit. From there, we develop your strategy and begin the application process together.',
+  },
+  {
+    question: 'How much does consulting cost?',
+    answer:
+      'Pricing depends on the service package — College Application Consulting, Essay Consulting only, or Boarding School Consulting — and the scope of work involved. We provide a detailed quote after the initial consultation, once we understand your specific situation.',
   },
   {
     question: 'What makes IVY BLOOM different from other consultants?',
     answer:
-      'We focus exclusively on Korean-American students and understand the unique challenges and strengths of this background. Every student receives personalized attention — we do not use generic templates.',
+      "We analyze each student's individual strengths, weaknesses, and personality before building a school list or application strategy. Nothing is templated. Our founder personally leads school selection and reviews every application. Essays are written by a specialist writing team — not outsourced generically. We also believe that trust between consultant and family is non-negotiable: if that foundation isn't there, we don't move forward.",
   },
   {
-    question: 'Do you offer boarding school consulting?',
+    question: 'Do you work with students outside of Korea?',
     answer:
-      'Yes. We support applications to top US boarding schools including school selection, essay guidance, and interview preparation.',
+      'Yes. Our clients include international students (F-1 visa applicants) and US permanent residents or citizens. Consulting is conducted entirely online, so location is not a barrier. We have experience with students across the US, Asia, and other regions.',
   },
 ]
 

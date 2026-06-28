@@ -1,5 +1,85 @@
 export type FaqItem = { question: string; answer: string }
 
+const ORG = {
+  '@type': 'Organization',
+  name: 'IVY BLOOM CONSULTING',
+  url: 'https://ivybloomconsulting.com',
+} as const
+
+type SchemaPost = {
+  title: string
+  publishedAt: string
+  excerpt?: string
+  slug: string
+  author?: string
+  imageUrl?: string
+  keywords?: string[]
+  schemaOrgType?: string
+  faqSection?: FaqItem[]
+  basePath?: 'blog' | 'articles'
+}
+
+export function buildSchemaOrgJsonLd(post: SchemaPost) {
+  const url = `https://ivybloomconsulting.com/${post.basePath ?? 'articles'}/${post.slug}`
+  const type = post.schemaOrgType ?? 'BlogPosting'
+
+  const base = {
+    '@context': 'https://schema.org',
+    name: post.title,
+    headline: post.title,
+    description: post.excerpt ?? '',
+    url,
+    datePublished: post.publishedAt,
+    ...(post.imageUrl && { image: [post.imageUrl] }),
+    ...(post.keywords?.length && { keywords: post.keywords.join(', ') }),
+    publisher: ORG,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  }
+
+  if (type === 'FAQPage' && post.faqSection?.length) {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: post.faqSection.map((f) => ({
+        '@type': 'Question',
+        name: f.question,
+        acceptedAnswer: { '@type': 'Answer', text: f.answer },
+      })),
+    }
+  }
+
+  if (type === 'Course') {
+    return {
+      ...base,
+      '@type': 'Course',
+      provider: ORG,
+    }
+  }
+
+  if (type === 'Service') {
+    return {
+      ...base,
+      '@type': 'Service',
+      provider: ORG,
+    }
+  }
+
+  if (type === 'Article') {
+    return {
+      ...base,
+      '@type': 'Article',
+      author: post.author ? { '@type': 'Person', name: post.author } : ORG,
+    }
+  }
+
+  // default: BlogPosting
+  return {
+    ...base,
+    '@type': 'BlogPosting',
+    author: post.author ? { '@type': 'Person', name: post.author } : ORG,
+  }
+}
+
 export function faqPageSchema(faqs: FaqItem[]) {
   return {
     '@context': 'https://schema.org',

@@ -1,7 +1,7 @@
 const stats = [
-  { value: '—', label: 'Students Placed' },
-  { value: '—', label: 'Top 20 Admits' },
-  { value: '—', label: 'Years of Experience' },
+  { value: '15', label: 'Years of Experience' },
+  { value: '7',  label: 'Years in Business' },
+  { value: '2019', label: 'Est.' },
 ]
 
 export default function Stats() {
