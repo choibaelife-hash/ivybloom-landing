@@ -103,8 +103,48 @@ export function organizationSchema() {
     telephone: '+15706778811',
     sameAs: [
       'https://blog.naver.com/ivybloom_consulting',
-      'https://pf.kakao.com/_ybbloom',
+      'https://pf.kakao.com/_pxeZhs',
     ],
+  }
+}
+
+export function aboutPageSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'About IVY BLOOM CONSULTING',
+    description:
+      'IVY BLOOM is a Seoul-based US college and boarding school admissions consultancy founded in 2019, specializing in personalized strategy for students applying to top US universities and boarding schools.',
+    url: 'https://ivybloomconsulting.com/about',
+    mainEntity: {
+      '@type': 'EducationalOrganization',
+      name: 'IVY BLOOM CONSULTING',
+      foundingDate: '2019',
+      description:
+        'Expert US college and boarding school admissions consulting for Korean-American and international students worldwide. Personalized strategy — no templates.',
+      url: 'https://ivybloomconsulting.com',
+      areaServed: ['United States', 'South Korea', 'International'],
+      knowsAbout: [
+        'US college admissions',
+        'boarding school admissions',
+        'Common Application strategy',
+        'college essay writing',
+        'Ivy League admissions',
+        'Exeter Andover Choate consulting',
+      ],
+      founder: {
+        '@type': 'Person',
+        name: '김소희',
+        alternateName: 'Sohee Kim',
+        jobTitle: 'US College Admissions Consultant',
+        description:
+          '7년째 미국 대학 전문 입시컨설턴트로 활동 중. Sohee Kim has been a specialist US college admissions consultant for 7 years, guiding students through the full application process from school list strategy to essay development.',
+        worksFor: {
+          '@type': 'EducationalOrganization',
+          name: 'IVY BLOOM CONSULTING',
+        },
+      },
+    },
   }
 }
 

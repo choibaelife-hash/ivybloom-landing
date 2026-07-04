@@ -4,7 +4,7 @@ const FORM_URL  = 'https://docs.google.com/forms/d/11IWatJJoihHx_1gk61v4KBTFX67g
 export default function Hero() {
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Background image */}
+      {/* Background image — 고전 도서관, 따뜻한 크림/버건디 톤 */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -12,8 +12,8 @@ export default function Hero() {
             "url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80')",
         }}
       />
-      {/* Overlay — 좌측 그라데이션 */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
+      {/* Overlay — 브랜드 다크 기반 그라데이션 */}
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/92 via-brand-dark/65 to-brand-dark/20" />
 
       {/* Content */}
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 w-full">
@@ -33,7 +33,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="inline-block bg-brand-cream text-brand-burgundy font-semibold px-8 py-4 rounded-sm hover:bg-brand-rose hover:text-brand-cream transition-colors text-sm tracking-wide"
           >
-            📱 카카오톡 무료 상담
+            Free Consultation
           </a>
           <a
             href={FORM_URL}
@@ -41,10 +41,9 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="inline-block border border-brand-cream/60 text-brand-cream px-8 py-4 rounded-sm hover:bg-brand-cream/10 transition-colors text-sm tracking-wide"
           >
-            상담 신청서 →
+            Inquiry Form →
           </a>
         </div>
-        <p className="text-brand-cream/40 text-xs mt-4">Weekdays 9 AM – 5 PM KST</p>
       </div>
     </section>
   )

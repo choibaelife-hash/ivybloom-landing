@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-const KAKAO_URL = 'https://pf.kakao.com/_ybbloom'
-const INSTAGRAM_URL = '#' // 클라이언트 계정 URL로 교체
-const YOUTUBE_URL = '#'   // 클라이언트 계정 URL로 교체
+const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
+const INSTAGRAM_URL = 'https://www.instagram.com/ivybloom7188'
+const YOUTUBE_URL = 'https://www.youtube.com/@ivybloom_admission'
 
 export default function Footer() {
   return (

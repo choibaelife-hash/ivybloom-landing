@@ -10,7 +10,7 @@ import { postBySlugQuery, allSlugsQuery } from '@/sanity/queries'
 import { urlFor } from '@/sanity/lib/image'
 import { buildSchemaOrgJsonLd } from '@/lib/structured-data'
 
-const KAKAO_URL = 'https://pf.kakao.com/_ybbloom'
+const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
 
 type Props = { params: { slug: string } }
 

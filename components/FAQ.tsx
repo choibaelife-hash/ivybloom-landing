@@ -5,45 +5,46 @@ import { faqPageSchema, type FaqItem } from '@/lib/structured-data'
 
 const faqs: FaqItem[] = [
   {
-    question: 'What is IVY BLOOM CONSULTING?',
+    question: 'Can I receive consulting entirely online?',
     answer:
-      'IVY BLOOM CONSULTING is a US college and boarding school admissions consulting firm founded in 2019. With 15 years of experience, we help Grade 7–11 students — including international students and US residents — build applications that get noticed. We specialize in school list strategy, application positioning, and essay development.',
+      'Yes. All sessions at IVY BLOOM are conducted online via video call (Zoom or similar). School list review, essay development, and application support are all handled remotely — so students in the US, Canada, Korea, or anywhere in Asia can work with us without any barriers.',
   },
   {
-    question: 'How does online consulting work?',
+    question: 'What does the consulting process look like from start to finish?',
     answer:
-      'All consulting is conducted online via video call (Zoom or similar). After an initial consultation, we schedule regular sessions for school list review, application strategy, and essay feedback. Everything is managed remotely, making it accessible to students anywhere in the world.',
+      'It begins with a consultation request via KakaoTalk or our inquiry form. Before the first meeting, you will complete a brief student profile questionnaire. The initial consultation is 2 hours and covers your academic background, extracurricular activities, and target schools. From there, we build a personalized strategy and guide you through every stage — school list, essays, and final submission.',
   },
   {
-    question: 'What does the consulting process look like step by step?',
+    question: 'My child\'s grades aren\'t strong — can you still help?',
     answer:
-      'It starts with a consultation request via KakaoTalk or the inquiry form. You will then complete a brief questionnaire so we can review your profile before our first meeting. The initial consultation is 2 hours and covers your background, goals, and school fit. From there, we develop your strategy and begin the application process together.',
+      'Yes. At IVY BLOOM, a transcript is never the whole story. One of our students had a neurological condition that affected her academic performance through middle school — she was accepted to all 10 universities she applied to. Another had transferred schools four times, including one withdrawal and one expulsion, and was admitted well above initial expectations. We find the competitive edge in what a transcript cannot show: character, story, and school fit.',
+  },
+  {
+    question: 'When should we start preparing for US college admissions?',
+    answer:
+      'We recommend starting strategy work in Grade 10, or by early Grade 11 at the latest. By the time Grade 11 arrives, students need to handle school list building, Common App setup, and essay writing all at once — which leaves very little room. Starting in Grade 10 allows time for activity positioning and narrative development before the application season begins.',
   },
   {
     question: 'How much does consulting cost?',
     answer:
-      'Pricing depends on the service package — College Application Consulting, Essay Consulting only, or Boarding School Consulting — and the scope of work involved. We provide a detailed quote after the initial consultation, once we understand your specific situation.',
+      'The initial consultation (2 hours) is ₩200,000. Application consulting sessions are ₩300,000. Full package pricing — which covers the complete school list, essay, and application process — is provided after the initial consultation once we understand your student\'s profile and the scope of work involved.',
   },
   {
-    question: 'What makes IVY BLOOM different from other consultants?',
+    question: 'When should we start preparing for US boarding school applications?',
     answer:
-      "We analyze each student's individual strengths, weaknesses, and personality before building a school list or application strategy. Nothing is templated. Our founder personally leads school selection and reviews every application. Essays are written by a specialist writing team — not outsourced generically. We also believe that trust between consultant and family is non-negotiable: if that foundation isn't there, we don't move forward.",
-  },
-  {
-    question: 'Do you work with students outside of Korea?',
-    answer:
-      'Yes. Our clients include international students (F-1 visa applicants) and US permanent residents or citizens. Consulting is conducted entirely online, so location is not a barrier. We have experience with students across the US, Asia, and other regions.',
+      'Most boarding school applications target Grade 9 or Grade 10 entry. For Grade 9 entry, we recommend starting in Grades 7–8. Top schools like Exeter, Andover, and Choate are highly competitive, and earlier preparation gives your student more time to build a compelling, well-rounded application. We cover the full process — school list, student essays, parent essays, and interview preparation.',
   },
 ]
 
-export default function FAQ() {
+export default function FAQ({ items }: { items?: FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const list = items ?? faqs
 
   return (
     <section className="py-20 bg-brand-cream">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema(faqs)) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema(list)) }}
       />
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
         <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3 text-center">
@@ -54,7 +55,7 @@ export default function FAQ() {
         </h2>
 
         <div className="divide-y divide-brand-border">
-          {faqs.map((faq, i) => (
+          {list.map((faq, i) => (
             <div key={i}>
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}

@@ -1,4 +1,4 @@
-const KAKAO_URL = 'https://pf.kakao.com/_ybbloom'
+const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
 
 export default function CTASection() {
   return (
@@ -11,7 +11,7 @@ export default function CTASection() {
           Ready to Begin Your Journey?
         </h2>
         <p className="text-brand-cream/70 mb-10 max-w-md mx-auto">
-          Book a free consultation today and take the first step toward your dream university.
+          Start with a consultation and take the first step toward your target school.
         </p>
         <a
           href={KAKAO_URL}
@@ -19,7 +19,7 @@ export default function CTASection() {
           rel="noopener noreferrer"
           className="inline-block bg-brand-cream text-brand-burgundy font-semibold px-10 py-4 rounded-sm hover:bg-brand-rose hover:text-brand-cream transition-colors text-sm tracking-wide"
         >
-          📱 카카오톡 상담 신청
+          Free Consulting
         </a>
       </div>
     </section>

@@ -3,12 +3,12 @@
 import Link from 'next/link'
 import { useState } from 'react'
 
-const KAKAO_URL = 'https://pf.kakao.com/_ybbloom'
+const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
 
 const links = [
   { href: '/',         label: 'Home'     },
+  { href: '/about',    label: 'About'    },
   { href: '/services', label: 'Services' },
-  { href: '/results',  label: 'Results'  },
   { href: '/articles', label: 'Articles' },
   { href: '/contact',  label: 'Contact'  },
 ]

@@ -1,9 +1,20 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
-import CTASection from '@/components/CTASection'
 import Footer from '@/components/Footer'
 import FAQ from '@/components/FAQ'
+import type { FaqItem } from '@/lib/structured-data'
+
+const serviceFaqs: FaqItem[] = [
+  { question: 'Is there consulting available for younger students?', answer: '' },
+  { question: 'How long does the consulting process take?', answer: '' },
+  { question: 'How many schools does Essay Consulting cover?', answer: '' },
+  { question: 'How many sessions does consulting involve? Is there a limit?', answer: '' },
+  { question: 'When do US boarding school applications open — and how early should we start preparing?', answer: '' },
+  { question: 'Can my child apply to boarding school without an SSAT score?', answer: '' },
+  { question: 'How do boarding school interviews work, and how should we prepare?', answer: '' },
+]
+import AnimateOnScroll from '@/components/AnimateOnScroll'
 
 export const metadata: Metadata = {
   title: 'Services | IVY BLOOM CONSULTING',
@@ -98,65 +109,85 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        {/* 소개 섹션 — stat + 미션 + 차별점 */}
-        <div className="border-b border-brand-border">
-          {/* Stats 바 — 버건디 배경으로 히어로와 구분 */}
-          <div className="bg-brand-burgundy">
-            <div className="max-w-3xl mx-auto px-4 py-8 grid grid-cols-3 divide-x divide-brand-cream/20 text-center">
-              <div className="px-4">
-                <p className="font-display text-3xl sm:text-4xl font-bold text-brand-cream">7</p>
-                <p className="text-xs text-brand-cream/60 uppercase tracking-wider mt-1">Years in Business</p>
-              </div>
-              <div className="px-4">
-                <p className="font-display text-3xl sm:text-4xl font-bold text-brand-cream">15</p>
-                <p className="text-xs text-brand-cream/60 uppercase tracking-wider mt-1">Years of Experience</p>
-              </div>
-              <div className="px-4">
-                <p className="font-display text-3xl sm:text-4xl font-bold text-brand-cream">2019</p>
-                <p className="text-xs text-brand-cream/60 uppercase tracking-wider mt-1">Est.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* 미션 + 차별점 */}
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 grid md:grid-cols-2 gap-14 items-start">
-            {/* 왼쪽: 미션 */}
-            <div>
-              <p className="text-xs text-brand-rose uppercase tracking-[3px] mb-4">Our Mission</p>
-              <blockquote className="font-display text-2xl sm:text-3xl font-bold text-brand-dark leading-snug mb-6">
-                &ldquo;The right admissions strategy makes all the difference.&rdquo;
-              </blockquote>
-              <p className="text-sm text-brand-dark/70 leading-relaxed mb-4">
-                Most students apply with the same GPA, the same activities, and the same essay structure. We believe what separates accepted students from rejected ones isn&apos;t credentials — it&apos;s strategy.
-              </p>
-              <p className="text-sm text-brand-dark/70 leading-relaxed">
-                For 15 years, our founder has worked with students and families to find the school that truly fits — and to build applications that show admissions officers exactly why each student belongs there.
-              </p>
+        {/* How We Work */}
+        <section className="bg-white py-20">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="text-center mb-14">
+              <p className="text-xs text-brand-rose uppercase tracking-[3px] mb-4">Our Process</p>
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-brand-dark">
+                How We Work
+              </h2>
             </div>
 
-            {/* 오른쪽: 차별점 + 팀 구조 */}
-            <div className="space-y-6">
-              <p className="text-xs text-brand-rose uppercase tracking-[3px] mb-4">What Sets Us Apart</p>
+            {/* 데스크톱: 가로 스텝 / 모바일: 2×2 그리드 */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 relative">
+              {/* 연결선 — 데스크톱만 */}
+              <div className="hidden md:block absolute top-7 left-[12.5%] right-[12.5%] border-t border-dashed border-brand-border z-0" />
+
               {[
                 {
-                  title: 'Personalized, Not Templated',
-                  body: "We start by analyzing each student's strengths, weaknesses, and personality — then build a school list and application strategy around who they actually are.",
+                  num: '01',
+                  title: 'Consultation',
+                  desc: 'A 30-minute call to understand your goals, timeline, and academic profile.',
                 },
                 {
-                  title: 'Written for Admissions Officers',
-                  body: 'Every document we produce is crafted so reviewers can immediately see the applicant at their best. We know what reads well in an admissions office.',
+                  num: '02',
+                  title: 'Strategy & School List',
+                  desc: 'Personalized school list and application roadmap — no templates, no guesswork.',
                 },
                 {
-                  title: 'Founder-Led, Expert-Supported',
-                  body: 'Our founder personally leads school selection and oversees every application. Essay writing is handled by our specialist writing team.',
+                  num: '03',
+                  title: 'Application & Essays',
+                  desc: 'Every document guided: Common App, supplements, and boarding school essays.',
                 },
-              ].map((item) => (
-                <div key={item.title} className="flex gap-4">
-                  <span className="text-brand-burgundy font-bold text-lg mt-0.5 flex-shrink-0">—</span>
-                  <div>
-                    <p className="text-sm font-semibold text-brand-dark mb-1">{item.title}</p>
-                    <p className="text-sm text-brand-dark/60 leading-relaxed">{item.body}</p>
+                {
+                  num: '04',
+                  title: 'Submission & Results',
+                  desc: 'Final review, deadline tracking, and decision support until you have your answer.',
+                },
+              ].map((step, i) => (
+                <AnimateOnScroll key={step.num} delay={i * 180}>
+                  <div className="relative z-10 flex flex-col items-center text-center px-4">
+                    <div className="w-14 h-14 rounded-full bg-white border-2 border-brand-border flex items-center justify-center mb-5">
+                      <span className="font-display font-bold text-sm text-brand-burgundy">{step.num}</span>
+                    </div>
+                    <h3 className="font-display font-bold text-sm text-brand-dark mb-2 leading-snug">
+                      {step.title}
+                    </h3>
+                    <p className="text-xs text-brand-dark/55 leading-relaxed">{step.desc}</p>
                   </div>
+                </AnimateOnScroll>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <a
+                href={KAKAO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-brand-burgundy text-brand-cream text-sm px-7 py-3 rounded-sm hover:bg-brand-dark transition-colors"
+              >
+                Book a Consultation
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats 바 */}
+        <div className="bg-brand-dark py-12">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-3 divide-x divide-brand-cream/20 text-center">
+              {[
+                { number: '7', unit: 'Years', label: 'of US Admissions Expertise' },
+                { number: '100+', unit: 'Students', label: 'Guided to Top Schools' },
+                { number: 'Top-20', unit: 'Results', label: 'Ivy League & Beyond' },
+              ].map((stat) => (
+                <div key={stat.unit} className="px-4 sm:px-10 py-2">
+                  <p className="font-display text-3xl sm:text-4xl font-bold text-brand-cream leading-none mb-1">
+                    {stat.number}
+                  </p>
+                  <p className="text-brand-rose text-xs uppercase tracking-widest mb-2">{stat.unit}</p>
+                  <p className="text-brand-cream/50 text-xs leading-snug hidden sm:block">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -170,24 +201,6 @@ export default function ServicesPage() {
             id={s.id}
             className={i % 2 === 0 ? 'bg-white' : 'bg-brand-cream'}
           >
-            {/* 이미지 */}
-            <div className="relative w-full h-72 sm:h-96 overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={s.image}
-                alt={s.imageAlt}
-                className="w-full h-full object-cover"
-                loading={i === 0 ? 'eager' : 'lazy'}
-              />
-              <div className="absolute inset-0 bg-brand-dark/40" />
-              {/* 이미지 위 번호 */}
-              <div className="absolute bottom-6 left-8">
-                <span className="font-display text-7xl font-bold text-brand-cream/20 leading-none select-none">
-                  {s.number}
-                </span>
-              </div>
-            </div>
-
             {/* 콘텐츠 */}
             <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
               <div className="grid md:grid-cols-2 gap-14 items-start">
@@ -229,7 +242,7 @@ export default function ServicesPage() {
                   </ul>
                   <div className="mt-8 pt-6 border-t border-brand-border">
                     <p className="text-xs text-brand-dark/40 mb-3">
-                      Pricing is provided after a free initial consultation.
+                      Pricing is provided after an initial consultation.
                     </p>
                     <a
                       href={KAKAO_URL}
@@ -237,17 +250,36 @@ export default function ServicesPage() {
                       rel="noopener noreferrer"
                       className="inline-block bg-brand-burgundy text-brand-cream text-xs px-5 py-2.5 rounded-sm hover:bg-brand-dark transition-colors"
                     >
-                      Book a Free Consultation
+                      Free Consulting
                     </a>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* 이미지 */}
+            <div className="relative w-full h-72 sm:h-96 overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={s.image}
+                alt={s.imageAlt}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-brand-dark/40" />
+              <div className="absolute bottom-6 left-8">
+                <span className="font-display text-7xl font-bold text-brand-cream/20 leading-none select-none">
+                  {s.number}
+                </span>
+              </div>
+            </div>
           </section>
         ))}
 
+        <FAQ items={serviceFaqs} />
+
         {/* 서비스 비교 점프 링크 */}
-        <div className="bg-brand-dark py-10 text-center">
+        <div className="bg-brand-burgundy py-10 text-center">
           <p className="text-brand-cream/60 text-xs uppercase tracking-widest mb-4">Jump to a service</p>
           <div className="flex flex-wrap justify-center gap-4">
             {services.map((s) => (
@@ -262,8 +294,6 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        <FAQ />
-        <CTASection />
       </main>
       <Footer />
     </>

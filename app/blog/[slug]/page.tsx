@@ -11,7 +11,7 @@ import { urlFor } from '@/sanity/lib/image'
 import { buildSchemaOrgJsonLd } from '@/lib/structured-data'
 
 const SITE_URL = 'https://ivybloomconsulting.com'
-const KAKAO_URL = 'https://pf.kakao.com/_ybbloom'
+const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
 
 type FaqItem = { question: string; answer: string }
 
