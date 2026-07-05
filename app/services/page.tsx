@@ -161,14 +161,12 @@ export default function ServicesPage() {
             </div>
 
             <div className="mt-12 text-center">
-              <a
-                href={KAKAO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/contact"
                 className="inline-block bg-brand-burgundy text-brand-cream text-sm px-7 py-3 rounded-sm hover:bg-brand-dark transition-colors"
               >
                 Book a Consultation
-              </a>
+              </Link>
             </div>
           </div>
         </section>
