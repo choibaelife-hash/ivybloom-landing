@@ -1,12 +1,12 @@
 import Nav from '@/components/Nav'
 import Hero from '@/components/Hero'
-import Stats from '@/components/Stats'
+import LogoBanner from '@/components/LogoBanner'
 import ProblemSection from '@/components/ProblemSection'
 import ServicesSection from '@/components/ServicesSection'
 import WhyUs from '@/components/WhyUs'
-import Testimonials from '@/components/Testimonials'
 import FAQ from '@/components/FAQ'
 import CTASection from '@/components/CTASection'
+import ArticlesPreview from '@/components/ArticlesPreview'
 import Footer from '@/components/Footer'
 import { organizationSchema } from '@/lib/structured-data'
 
@@ -20,11 +20,11 @@ export default function Home() {
       <Nav />
       <main className="pt-16">
         <Hero />
-        <Stats />
+        <LogoBanner />
+        <WhyUs />
         <ProblemSection />
         <ServicesSection />
-        <WhyUs />
-        <Testimonials />
+        <ArticlesPreview />
         <FAQ />
         <CTASection />
       </main>

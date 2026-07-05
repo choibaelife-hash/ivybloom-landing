@@ -1,3 +1,5 @@
+import ScrollReveal from '@/components/ScrollReveal'
+
 const problems = [
   {
     heading: 'Strong credentials are not enough without strategy',
@@ -17,25 +19,30 @@ export default function ProblemSection() {
   return (
     <section className="py-20 bg-brand-cream">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3 text-center">
-          The Challenge
-        </p>
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-dark text-center mb-14">
-          Why Most Applications Fall Short
-        </h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {problems.map((p) => (
-            <div
-              key={p.heading}
-              className="border-l-2 border-brand-burgundy pl-5 py-2"
-            >
-              <h3 className="font-display font-bold text-lg text-brand-dark mb-2">
-                {p.heading}
-              </h3>
-              <p className="text-sm text-brand-dark/70 leading-relaxed">{p.body}</p>
-            </div>
-          ))}
-        </div>
+        <ScrollReveal className="text-center mb-14">
+          <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3">
+            The Challenge
+          </p>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-dark">
+            Why Most Applications Fall Short
+          </h2>
+        </ScrollReveal>
+
+        <ScrollReveal stagger>
+          <div className="grid md:grid-cols-3 gap-6">
+            {problems.map((p) => (
+              <div
+                key={p.heading}
+                className="stagger-item border-l-2 border-brand-burgundy pl-5 py-2"
+              >
+                <h3 className="font-display font-bold text-lg text-brand-dark mb-2">
+                  {p.heading}
+                </h3>
+                <p className="text-sm text-brand-dark/70 leading-relaxed">{p.body}</p>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   )

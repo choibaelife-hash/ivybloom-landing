@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { faqPageSchema, type FaqItem } from '@/lib/structured-data'
+import ScrollReveal from '@/components/ScrollReveal'
 
 const faqs: FaqItem[] = [
   {
@@ -47,12 +48,14 @@ export default function FAQ({ items }: { items?: FaqItem[] }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema(list)) }}
       />
       <div className="max-w-3xl mx-auto px-4 sm:px-6">
-        <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3 text-center">
-          FAQ
-        </p>
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-dark text-center mb-14">
-          Frequently Asked Questions
-        </h2>
+        <ScrollReveal className="text-center mb-14">
+          <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3">
+            FAQ
+          </p>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-dark">
+            Frequently Asked Questions
+          </h2>
+        </ScrollReveal>
 
         <div className="divide-y divide-brand-border">
           {list.map((faq, i) => (
