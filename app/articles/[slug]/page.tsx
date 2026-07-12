@@ -27,17 +27,33 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const post = await client.fetch(postBySlugQuery, { slug: params.slug })
     if (!post) return {}
+
+    const metaTitle       = post.metaTitle       ?? post.title
+    const metaDescription = post.metaDescription ?? post.excerpt ?? ''
+    const ogImageUrl      = post.ogImage
+      ? urlFor(post.ogImage).width(1200).height(630).url()
+      : post.mainImage
+        ? urlFor(post.mainImage).width(1200).height(630).url()
+        : undefined
+
     return {
-      title: post.title,
-      description: post.excerpt ?? '',
+      title:       metaTitle,
+      description: metaDescription,
+      keywords:    post.keywords ?? [],
+      alternates:  post.canonical ? { canonical: post.canonical } : undefined,
+      robots:      post.noindex ? { index: false, follow: false } : undefined,
       openGraph: {
-        title: post.title,
-        description: post.excerpt ?? '',
-        type: 'article',
+        title:         post.twitterTitle ?? metaTitle,
+        description:   post.twitterDescription ?? metaDescription,
+        type:          'article',
         publishedTime: post.publishedAt,
-        images: post.mainImage
-          ? [{ url: urlFor(post.mainImage).width(1200).height(630).url() }]
-          : [],
+        images:        ogImageUrl ? [{ url: ogImageUrl }] : [],
+      },
+      twitter: {
+        card:        'summary_large_image',
+        title:       post.twitterTitle ?? metaTitle,
+        description: post.twitterDescription ?? metaDescription,
+        images:      ogImageUrl ? [ogImageUrl] : [],
       },
     }
   } catch {
