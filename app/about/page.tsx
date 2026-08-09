@@ -6,7 +6,6 @@ import FAQ from '@/components/FAQ'
 import CTASection from '@/components/CTASection'
 import Footer from '@/components/Footer'
 import { organizationSchema, aboutPageSchema } from '@/lib/structured-data'
-import AnimateOnScroll from '@/components/AnimateOnScroll'
 
 const OG_DESCRIPTION =
   'IVY BLOOM is a Seoul-based US college and boarding school admissions consultancy founded in 2019. Learn about our approach, philosophy, and student success stories.'
@@ -159,47 +158,6 @@ export default function AboutPage() {
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Our Mission ── */}
-        <section className="bg-brand-cream pb-24">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <div className="border-t border-brand-border pt-16 mb-14 text-center">
-              <p className="text-xs text-brand-rose uppercase tracking-[3px] mb-5">Our Mission</p>
-              <blockquote className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-brand-dark leading-snug mb-6 max-w-3xl mx-auto">
-                &ldquo;The right admissions strategy makes all the difference.&rdquo;
-              </blockquote>
-              <p className="text-sm text-brand-dark/60 leading-relaxed max-w-2xl mx-auto">
-                Most students apply with the same GPA, the same activities, and the same essay structure.
-                What separates accepted students from rejected ones isn&apos;t credentials — it&apos;s strategy.
-              </p>
-            </div>
-
-            <p className="text-xs text-brand-rose uppercase tracking-[3px] mb-8 text-center">What Sets Us Apart</p>
-            <div className="grid md:grid-cols-3 gap-6">
-              {[
-                {
-                  title: 'Personalized, Not Templated',
-                  body: "We analyze each student's strengths, weaknesses, and personality before building any school list or strategy. Nothing is templated.",
-                },
-                {
-                  title: 'Written for Admissions Officers',
-                  body: 'Every document we produce is crafted so reviewers can immediately see the applicant at their best. We know what reads well in an admissions office.',
-                },
-                {
-                  title: 'Founder-Led, Expert-Supported',
-                  body: 'Sohee Kim personally leads school selection and oversees every application. Essays are handled by our specialist writing team.',
-                },
-              ].map((item, i) => (
-                <AnimateOnScroll key={item.title} delay={i * 150}>
-                  <div className="bg-white rounded-sm shadow-md p-6 h-full">
-                    <p className="font-display font-bold text-sm text-brand-dark mb-3 leading-snug">{item.title}</p>
-                    <p className="text-xs text-brand-dark/60 leading-relaxed">{item.body}</p>
-                  </div>
-                </AnimateOnScroll>
-              ))}
             </div>
           </div>
         </section>
