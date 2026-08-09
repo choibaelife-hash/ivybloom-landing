@@ -14,6 +14,7 @@ export const metadata: Metadata = {
 
 const CATEGORIES = [
   { value: 'all',      label: 'All' },
+  { value: 'story',    label: "Ivybloom's Stories" },
   { value: 'college',  label: 'College Admissions' },
   { value: 'boarding', label: 'Boarding School' },
   { value: 'sat',      label: 'SAT / ACT' },
@@ -22,6 +23,7 @@ const CATEGORIES = [
 ]
 
 const CATEGORY_LABELS: Record<string, string> = {
+  story:    "Ivybloom's Stories",
   college:  'College Admissions',
   boarding: 'Boarding School',
   essay:    'Essay',
@@ -56,6 +58,7 @@ export default async function ArticlesPage({
     activeCategory === 'all'
       ? posts
       : posts.filter((p) => p.category === activeCategory)
+  const storyPosts = posts.filter((p) => p.category === 'story')
 
   return (
     <>
@@ -67,6 +70,51 @@ export default async function ArticlesPage({
             Insights & Guides
           </h1>
         </div>
+
+        {/* Ivybloom's Stories 하이라이트 */}
+        {storyPosts.length > 0 && (
+          <div className="bg-brand-cream border-b border-brand-border py-14">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6">
+              <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3 text-center">Ivybloom&apos;s Stories</p>
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-brand-dark text-center mb-10">
+                Every Application Has a Story
+              </h2>
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {storyPosts.map((post) => (
+                  <Link
+                    key={post._id}
+                    href={`/articles/${post.slug.current}`}
+                    className="group bg-white border border-brand-border rounded-sm overflow-hidden hover:border-brand-burgundy transition-colors"
+                  >
+                    <div className="relative aspect-video bg-brand-border">
+                      {post.mainImage ? (
+                        <Image
+                          src={urlFor(post.mainImage).width(400).height(225).url()}
+                          alt={post.mainImage.alt ?? post.title}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <div className="absolute inset-0 bg-gradient-to-br from-brand-burgundy/20 to-brand-rose/20" />
+                      )}
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-display font-bold text-base text-brand-dark leading-snug mb-2 group-hover:text-brand-burgundy transition-colors line-clamp-2">
+                        {post.title}
+                      </h3>
+                      {post.excerpt && (
+                        <p className="text-xs text-brand-dark/60 leading-relaxed line-clamp-2 mb-3">
+                          {post.excerpt}
+                        </p>
+                      )}
+                      <span className="text-xs text-brand-burgundy">Full Story →</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 카테고리 필터 */}
         <div className="max-w-6xl mx-auto px-4 sm:px-6 pt-10">

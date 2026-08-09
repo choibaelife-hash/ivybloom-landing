@@ -58,7 +58,7 @@ const cases = [
     summary:
       'A student who experienced a neurological condition affecting school performance through middle school. Starting from Grade 10, we rebuilt her academic narrative from the ground up.',
     outcome: 'Accepted at all 10 universities applied to.',
-    slug: null,
+    slug: 'against-all-odds',
   },
   {
     id: '02',
@@ -66,7 +66,7 @@ const cases = [
     summary:
       'A high school student who had developed a popular Roblox game with a significant player base. We positioned his self-taught engineering skills as the core of his application story.',
     outcome: 'Accepted to UC Berkeley and Georgia Tech.',
-    slug: null,
+    slug: 'the-builder',
   },
   {
     id: '03',
@@ -74,7 +74,7 @@ const cases = [
     summary:
       'A student who had transferred schools four times — including one withdrawal and one expulsion — with a compromised academic record. We focused on what the transcript couldn\'t tell.',
     outcome: 'Admitted to a school well above initial expectations.',
-    slug: null,
+    slug: 'a-rocky-record',
   },
 ]
 
@@ -162,10 +162,25 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* ── 대표 소개 ── */}
+        <section className="py-10 bg-white border-t border-brand-border">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+            <span className="font-display text-6xl text-brand-burgundy/25 leading-none block mb-2">&ldquo;</span>
+            <p className="font-display text-xl sm:text-2xl font-bold text-brand-burgundy leading-snug mb-7 max-w-xl mx-auto">
+              Founded on the belief that every application should be built around who a student actually is, not a template.
+            </p>
+            <p className="font-display font-bold text-sm text-brand-dark">Sohee Kim</p>
+            <p className="text-xs text-brand-rose uppercase tracking-widest mt-1 mb-6">Founder, IVY BLOOM CONSULTING</p>
+            <p className="text-sm text-brand-dark/60 leading-relaxed">
+              Founded IVY BLOOM CONSULTING in 2019, originally as EduMatch Consulting, rebranded in 2024. A graduate of the School of Management at the University at Buffalo, she built her admissions expertise at a leading Seoul consulting firm before launching her own practice.
+            </p>
+          </div>
+        </section>
+
         {/* ── 케이스 스터디 ── */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-brand-cream">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3 text-center">Student Stories</p>
+            <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3 text-center">Ivybloom&apos;s Stories</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-dark text-center mb-4">
               Every Application Has a Story
             </h2>
@@ -182,13 +197,12 @@ export default function AboutPage() {
                     <p className="text-xs text-brand-dark/50 uppercase tracking-wider mb-1">Outcome</p>
                     <p className="text-sm font-semibold text-brand-dark">{c.outcome}</p>
                   </div>
-                  {/* 추후 article 슬러그 연결 시 활성화 */}
                   {c.slug ? (
                     <Link
                       href={`/articles/${c.slug}`}
                       className="text-xs text-brand-burgundy hover:text-brand-dark transition-colors underline underline-offset-2"
                     >
-                      Read full story →
+                      Full Story →
                     </Link>
                   ) : (
                     <span className="text-xs text-brand-dark/25">Full story coming soon</span>
@@ -200,7 +214,7 @@ export default function AboutPage() {
         </section>
 
         {/* ── 서비스 소개 ── */}
-        <section className="py-20 bg-brand-cream">
+        <section className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3 text-center">What We Offer</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-dark text-center mb-14">

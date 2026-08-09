@@ -51,6 +51,7 @@ export const postType = defineType({
       group: 'content',
       options: {
         list: [
+          { title: "Ivybloom's Stories", value: 'story' },
           { title: 'College Admissions', value: 'college' },
           { title: 'Boarding School',    value: 'boarding' },
           { title: 'Essay',              value: 'essay' },
