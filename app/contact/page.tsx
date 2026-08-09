@@ -62,6 +62,7 @@ export default function ContactPage() {
               <div>
                 <p className="text-brand-rose text-[10px] uppercase tracking-widest mb-0.5">Phone</p>
                 <p className="text-brand-cream/80 text-sm">+82-10-7188-8111</p>
+                <p className="text-brand-cream/50 text-xs mt-0.5">Mon–Fri, 9:00 AM – 5:00 PM KST</p>
               </div>
               <div>
                 <p className="text-brand-rose text-[10px] uppercase tracking-widest mb-0.5">Email</p>
