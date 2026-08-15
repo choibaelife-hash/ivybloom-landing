@@ -9,7 +9,7 @@ const services = [
     title: 'College Application Consulting',
     target: 'Grade 11 High School Students',
     description:
-      'Full-cycle admissions strategy — from building your target school list to submitting every application. We craft a narrative that sets you apart in the most competitive applicant pools in the world.',
+      'Full-cycle admissions strategy — from building your college list to submitting every application. We craft a narrative that sets you apart in the most competitive applicant pools in the world.',
     items: ['College list strategy', 'Common App review', 'Personal Statement + Supplement Essays'],
   },
   {
@@ -18,8 +18,8 @@ const services = [
     title: 'Essay Consulting',
     target: 'Grade 11 · Essay-Only Option',
     description:
-      'Already have your school list? We focus exclusively on writing the essays that matter most. Every draft is built around your voice — not a template.',
-    items: ['Supplement Essays for every target school', 'Multiple revision rounds', 'Flexible scope by school'],
+      'Already have your college list? We focus exclusively on writing the essays that matter most. Every draft is built around your voice — not a template.',
+    items: ['Supplement Essays for every college', 'Multiple revision rounds', 'Flexible scope by college'],
   },
   {
     number: '03',
@@ -28,7 +28,7 @@ const services = [
     target: 'Grades 7–9',
     description:
       'Applying to Exeter, Andover, or Choate? We support the full application — from school list to student essays to Parent Essay — for students and families together.',
-    items: ['School list & positioning', 'Student + Parent Essays', 'Interview preparation'],
+    items: ['School Lists & Positioning', "Candidate's application review", 'Candidate & Parent Essay', 'Portfolio Review', 'Interview preparation'],
   },
 ]
 

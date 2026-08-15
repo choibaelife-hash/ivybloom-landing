@@ -1,18 +1,11 @@
 const colleges = [
+  'University of California, Berkeley',
+  'University of California, Los Angeles',
+  'Georgia Institute of Technology',
+  'Emory University',
   'Harvard University',
-  'Yale University',
-  'Princeton University',
-  'Columbia University',
-  'Cornell University',
-  'Dartmouth College',
-  'Brown University',
-  'Univ. of Pennsylvania',
-  'MIT',
-  'Stanford University',
-  'Duke University',
-  'Georgetown University',
-  'Northwestern University',
-  'Vanderbilt University',
+  'University of Michigan, Ann Arbor',
+  'University of Southern California',
 ]
 
 const boardingSchools = [
