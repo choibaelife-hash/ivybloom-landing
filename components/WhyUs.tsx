@@ -36,7 +36,7 @@ export default function WhyUs() {
         <div className="grid md:grid-cols-2 gap-12 items-stretch">
           {/* 컨설턴트 사진 — 좌측에서 등장 */}
           <ScrollReveal direction="left" className="h-full">
-            <div className="relative h-full min-h-[420px] bg-white border border-brand-border rounded-sm overflow-hidden">
+            <div className="relative h-[350px] md:h-full md:min-h-[420px] bg-white border border-brand-border rounded-sm overflow-hidden">
               <Image
                 src="/ivybloom logo.jpg"
                 alt="IVY BLOOM consulting — 15 years of US admissions experience"

@@ -1,0 +1,12 @@
+export const releaseItems = [
+  { key: 'inputCompleteness', title: '발행 전 · 필수 입력과 참조 확인', necessity: '우리 발행 기준 필수', handling: '수동 입력', verification: '편집기에서 수동 확인', guide: '목적: 제목·본문·대표 이미지와 필요한 참조가 빠지지 않았는지 확인합니다. 좋은 예: 본문과 이미지 alt를 확인하고 비어 있는 관련 글 참조를 제거. 피할 예: 입력칸이 있다는 이유만으로 실제 페이지 표시까지 통과 처리.' },
+  { key: 'editorialFacts', title: '발행 전 · 사실과 적용 범위 확인', necessity: '우리 발행 기준 필수', handling: '수동 입력', verification: '원고·공식 근거 수동 대조', guide: '목적: 원고의 대회명·연도·자격·일정과 출처를 대조합니다. 좋은 예: 공식 요강을 확인하고 미확인 내용은 확인 필요로 남김. 피할 예: 가상 사례를 실제 성과처럼 작성.' },
+  { key: 'visibleContent', title: '발행 후 · 제목·본문·이미지 실제 표시', necessity: '우리 발행 기준 필수', handling: '수동 입력', verification: '공개 URL에서 수동 확인', guide: '목적: 실제 페이지 렌더링을 확인합니다. 좋은 예: 공개 URL에서 제목·본문·이미지·alt 확인. 피할 예: Studio 입력값만 보고 통과 처리.' },
+  { key: 'publicMetadata', title: '발행 후 · HTML 메타·JSON-LD와 사실 일치', necessity: '조건부', handling: '자동 생성 + 수동 검사', verification: '공개 HTML·구조화 데이터 실제 확인', guide: '목적: 표시 내용과 title/description/canonical/구조화 데이터가 일치하는지 확인합니다. 좋은 예: 공개 HTML을 열어 값과 유형을 대조. 피할 예: 자동 생성되므로 검사도 통과했다고 표시.' },
+  { key: 'urlAndLinks', title: '발행 후 · URL 200과 링크 확인', necessity: '우리 발행 기준 필수', handling: '수동 입력', verification: '공개 URL·링크 실제 확인', guide: '목적: 정상 주소와 깨진 링크를 확인합니다. 좋은 예: 대상 URL 및 주요 링크의 응답 확인. 피할 예: slug 입력만으로 HTTP 200을 추정.' },
+  { key: 'indexingIntent', title: '발행 후 · canonical·noindex·robots', necessity: '우리 발행 기준 필수', handling: '자동 생성/사이트 공통 + 수동 검사', verification: '공개 HTML·robots 실제 확인', guide: '목적: 색인 설정이 공개 의도와 맞는지 확인합니다. 좋은 예: 공개 URL의 canonical·robots를 직접 확인. 피할 예: noindex를 비밀 보호 수단으로 간주.' },
+  { key: 'mobileUsability', title: '발행 후 · 모바일 본문·표·버튼', necessity: '우리 발행 기준 필수', handling: '수동 입력', verification: '모바일 화면에서 수동 확인', guide: '목적: 작은 화면에서 읽기와 조작이 가능한지 확인합니다. 좋은 예: 실제 모바일 폭에서 표·링크·버튼 확인. 피할 예: 데스크톱 화면만 확인.' },
+  { key: 'cacheRefresh', title: '발행 후 · 수정 내용과 캐시 갱신', necessity: '조건부', handling: '사이트 공통 + 수동 검사', verification: '수정 후 공개 URL 재확인', guide: '목적: 수정본이 실제 공개 페이지에 반영됐는지 확인합니다. 좋은 예: 수정 후 페이지·메타 재확인. 피할 예: 저장 완료를 캐시 갱신 완료로 간주.' },
+  { key: 'structuredData', title: '발행 후 · 구조화 유형과 오류', necessity: '조건부', handling: '자동 생성 + 수동 검사', verification: '실제 공개 URL 검사', guide: '목적: 보이는 콘텐츠와 JSON-LD 유형·값을 대조합니다. 좋은 예: 실제 URL 검사 결과와 화면을 함께 확인. 피할 예: 표시되지 않은 FAQ나 성과를 마크업.' },
+  { key: 'searchConsole', title: '발행 후 · 색인 가능성과 실제 색인 상태', necessity: '선택', handling: '수동 입력', verification: 'Search Console에서 별도 확인', guide: '목적: 기술적 색인 가능성과 실제 검색 색인을 구분합니다. 좋은 예: URL 검사 시각과 결과를 기록. 피할 예: HTTP 200만으로 색인 완료라고 주장.' },
+] as const

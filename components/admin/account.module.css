@@ -1,0 +1,20 @@
+.screen { min-height: calc(100dvh - 64px); display: grid; place-items: center; padding: 40px 20px; background: #FAF6F0; color: #3D1A24; }
+.accountBar { padding: 16px 24px; font-size: 12px; background: #FAF6F0; color: #84656E; border-bottom: 1px solid #E8DDD4; }
+.accountScreen { min-height: calc(100dvh - 120px); }
+.card { width: 100%; max-width: 430px; padding: 40px; background: #FAF6F0; border: 1px solid #C9919A30; border-radius: 16px; box-shadow: 0 16px 50px #3D1A2408; }
+.eyebrow { font-size: 10px; letter-spacing: .16em; color: #7B2D3E; margin-bottom: 18px; }
+.card h1 { font-family: var(--font-playfair), serif; font-size: 32px; margin-bottom: 10px; }
+.intro { font-size: 14px; color: #84656E; line-height: 1.6; margin-bottom: 28px; }
+.card fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 18px; min-width: 0; }
+.card label { display: grid; gap: 8px; font-size: 13px; font-weight: 600; }
+.card input { width: 100%; padding: 13px 14px; border: 1px solid #E8DDD4; border-radius: 7px; font: inherit; background: white; color: #3D1A24; }
+.card input:read-only { background: #FAF6F0; color: #84656E; }
+.card input:focus-visible, .card button:focus-visible, .back:focus-visible { outline: 2px solid #C9919A; outline-offset: 3px; }
+.card button { padding: 14px; border: 0; border-radius: 7px; background: #3D1A24; color: #fff; font: inherit; cursor: pointer; }
+.card button:disabled { opacity: .5; cursor: wait; }
+.error, .success { padding: 12px; margin-bottom: 20px; border-radius: 6px; font-size: 13px; line-height: 1.6; }
+.error { background: #FAF6F0; color: #963c2b; }
+.success { background: #eff6ed; color: #38653a; }
+.help { font-size: 12px; line-height: 1.6; color: #84656E; }
+.back { display: block; text-align: center; margin-top: 24px; font-size: 12px; color: #84656E; }
+@media (max-width: 480px) { .card { padding: 30px 24px; } }

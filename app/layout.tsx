@@ -9,6 +9,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ivybloomconsulting.com'),
   title: 'IVY BLOOM CONSULTING | US College Admissions for Korean Students',
   description:
     'IVY BLOOM CONSULTING helps Korean-American students cultivate their unique abilities and gain admission to top US universities. Expert college counseling, essay coaching, and application strategy.',
@@ -50,7 +51,7 @@ export default function RootLayout({
       <head>
         <link
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css"
         />
       </head>
       <body className="font-sans antialiased">{children}</body>

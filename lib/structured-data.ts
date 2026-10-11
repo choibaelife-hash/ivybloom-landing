@@ -8,7 +8,7 @@ const ORG = {
 
 type SchemaPost = {
   title: string
-  publishedAt: string
+  publishedAt?: string
   excerpt?: string
   slug: string
   author?: string
@@ -17,19 +17,20 @@ type SchemaPost = {
   schemaOrgType?: string
   faqSection?: FaqItem[]
   basePath?: 'blog' | 'articles'
+  url?: string
 }
 
-export function buildSchemaOrgJsonLd(post: SchemaPost) {
-  const url = `https://ivybloomconsulting.com/${post.basePath ?? 'articles'}/${post.slug}`
+export function buildSchemaOrgJsonLd(post: SchemaPost): WithContext<Thing> {
+  const url = post.url ?? `https://ivybloomconsulting.com/${post.basePath ?? 'articles'}/${post.slug}`
   const type = post.schemaOrgType ?? 'BlogPosting'
 
   const base = {
-    '@context': 'https://schema.org',
+    '@context': 'https://schema.org' as const,
     name: post.title,
     headline: post.title,
     description: post.excerpt ?? '',
     url,
-    datePublished: post.publishedAt,
+    ...(post.publishedAt && { datePublished: post.publishedAt }),
     ...(post.imageUrl && { image: [post.imageUrl] }),
     ...(post.keywords?.length && { keywords: post.keywords.join(', ') }),
     publisher: ORG,
@@ -204,3 +205,4 @@ export function blogPostingSchema(post: {
     },
   }
 }
+import type { WithContext, Thing } from 'schema-dts'

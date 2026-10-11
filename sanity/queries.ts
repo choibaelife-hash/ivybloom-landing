@@ -1,7 +1,7 @@
 import { groq } from 'next-sanity'
 
 export const postsPreviewQuery = groq`
-  *[_type == "post"] | order(publishedAt desc) [0...3] {
+  *[_type in ["post", "journalPost"] && !(_id in path("drafts.**")) && defined(title) && defined(slug.current) && count(body) > 0] | order(publishedAt desc) [0...3] {
     _id,
     title,
     slug,
@@ -13,7 +13,7 @@ export const postsPreviewQuery = groq`
 `
 
 export const allPostsQuery = groq`
-  *[_type == "post"] | order(publishedAt desc) {
+  *[_type in ["post", "journalPost"] && !(_id in path("drafts.**")) && defined(title) && defined(slug.current) && count(body) > 0] | order(publishedAt desc) {
     _id,
     title,
     slug,
@@ -25,7 +25,7 @@ export const allPostsQuery = groq`
 `
 
 export const postBySlugQuery = groq`
-  *[_type == "post" && slug.current == $slug][0] {
+  *[_type in ["post", "journalPost"] && !(_id in path("drafts.**")) && defined(title) && count(body) > 0 && slug.current == $slug][0] {
     _id,
     title,
     slug,
@@ -46,10 +46,18 @@ export const postBySlugQuery = groq`
     schemaOrgType,
     twitterTitle,
     twitterDescription,
-    "faqSection": faqSection[] { question, answer }
+    cta { label, url },
+    "faqSection": faqSection[] { _key, question, answer },
+    "relatedPosts": relatedPosts[]->{ _id, title, slug, noindex }
   }
 `
 
 export const allSlugsQuery = groq`
-  *[_type == "post"] { "slug": slug.current }
+  *[_type in ["post", "journalPost"] && !(_id in path("drafts.**")) && defined(title) && defined(slug.current) && count(body) > 0] { "slug": slug.current }
+`
+
+export const sitemapPostsQuery = groq`
+  *[_type in ["post", "journalPost"] && !(_id in path("drafts.**")) && defined(title) && defined(slug.current) && count(body) > 0 && noindex != true] {
+    "slug": slug.current
+  }
 `

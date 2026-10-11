@@ -33,7 +33,7 @@ export function SoftRequiredInput(props: StringInputProps) {
       </div>
       {showError && (
         <Text size={1} style={{ color: 'var(--card-critical-fg-color, #c53030)' }}>
-          ! 글 작성 전 반드시 입력하세요
+          작성 기준에 필요한 값입니다. 내용을 확인해 주세요.
         </Text>
       )}
     </Stack>

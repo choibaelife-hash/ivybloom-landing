@@ -1,27 +1,26 @@
 import type { MetadataRoute } from 'next'
 import { client } from '@/sanity/client'
-import { allSlugsQuery } from '@/sanity/queries'
+import { sitemapPostsQuery } from '@/sanity/queries'
+import { SITE_URL, articleUrl } from '@/lib/editorial/public-post'
 
-const BASE_URL = 'https://ivybloomconsulting.com'
+export const dynamic = 'force-dynamic'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let slugs: { slug: string }[] = []
   try {
-    slugs = await client.fetch(allSlugsQuery)
+    slugs = await client.fetch(sitemapPostsQuery, {}, { cache: 'no-store' })
   } catch {
     // Sanity not configured yet
   }
 
-  const articleEntries = slugs.map((s) => ({
-    url: `${BASE_URL}/articles/${s.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }))
+  const articleEntries = slugs.filter((s) => s.slug).map((s) => ({ url: articleUrl(s.slug) }))
 
   return [
-    { url: BASE_URL,               changeFrequency: 'weekly',  priority: 1.0, lastModified: new Date() },
-    { url: `${BASE_URL}/articles`, changeFrequency: 'weekly',  priority: 0.8, lastModified: new Date() },
+    { url: SITE_URL },
+    { url: `${SITE_URL}/about` },
+    { url: `${SITE_URL}/services` },
+    { url: `${SITE_URL}/contact` },
+    { url: `${SITE_URL}/articles` },
     ...articleEntries,
   ]
 }

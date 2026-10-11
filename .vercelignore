@@ -1,0 +1,13 @@
+# Local secrets and build/cache artifacts
+.env*
+node_modules/
+.next/
+.sanity/
+.git/
+.superpowers/
+*.tar.gz
+tsconfig.tsbuildinfo
+# Internal guides and verification scripts
+*.md
+tests/
+tools/

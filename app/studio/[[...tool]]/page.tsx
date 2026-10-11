@@ -1,6 +1,7 @@
-import { redirect } from 'next/navigation'
+import Studio from './Studio'
 
-// 호스팅된 Sanity Studio로 리다이렉트 (React 18 환경에서 embedded studio 불가)
+export { metadata, viewport } from 'next-sanity/studio'
+
 export default function StudioPage() {
-  redirect('https://fxgjdpno.sanity.studio')
+  return <Studio />
 }

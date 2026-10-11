@@ -100,6 +100,7 @@ export default function ArticlesSliderClient({ posts }: { posts: SliderPost[] })
           {/* 이전 */}
           <button
             onClick={() => move(-1)}
+            aria-label="이전 글"
             className="flex-shrink-0 w-11 h-11 rounded-full bg-brand-burgundy hover:bg-brand-dark transition-colors flex items-center justify-center"
             style={{ opacity: shown ? 1 : 0, transition: 'opacity 0.6s ease-out 0.3s' }}
           >
@@ -190,6 +191,7 @@ export default function ArticlesSliderClient({ posts }: { posts: SliderPost[] })
           {/* 다음 */}
           <button
             onClick={() => move(1)}
+            aria-label="다음 글"
             className="flex-shrink-0 w-11 h-11 rounded-full bg-brand-burgundy hover:bg-brand-dark transition-colors flex items-center justify-center"
             style={{ opacity: shown ? 1 : 0, transition: 'opacity 0.6s ease-out 0.3s' }}
           >
@@ -205,18 +207,25 @@ export default function ArticlesSliderClient({ posts }: { posts: SliderPost[] })
           {posts.map((_, i) => (
             <button
               key={i}
+              aria-label={`${i + 1}번째 글 보기`}
+              aria-current={i === dotActive ? 'true' : undefined}
               onClick={() => { setAnimated(true); setIdx(N + i) }}
               style={{
-                width:           i === dotActive ? '20px' : '8px',
-                height:          '8px',
+                width:           '32px',
+                height:          '32px',
                 borderRadius:    '999px',
-                backgroundColor: i === dotActive ? '#7B2D3E' : 'rgba(123,45,62,0.25)',
+                backgroundColor: 'transparent',
                 border:          'none',
                 cursor:          'pointer',
                 padding:         0,
-                transition:      'width 0.3s ease, background-color 0.3s ease',
+                display:        'flex',
+                alignItems:     'center',
+                justifyContent:'center',
               }}
-            />
+            ><span aria-hidden="true" style={{
+              width: i === dotActive ? '20px' : '8px', height: '8px', borderRadius: '999px',
+              backgroundColor: i === dotActive ? '#7B2D3E' : 'rgba(123,45,62,0.25)',
+            }} /></button>
           ))}
         </div>
 

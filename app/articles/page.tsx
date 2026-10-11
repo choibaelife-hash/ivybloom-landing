@@ -44,16 +44,16 @@ type Post = {
 export default async function ArticlesPage({
   searchParams,
 }: {
-  searchParams: { category?: string }
+  searchParams: Promise<{ category?: string }>
 }) {
   let posts: Post[] = []
   try {
-    posts = await client.fetch(allPostsQuery, {}, { next: { revalidate: 3600 } })
+    posts = await client.fetch(allPostsQuery, {}, { cache: 'no-store' })
   } catch {
     // Sanity not configured yet
   }
 
-  const activeCategory = searchParams.category ?? 'all'
+  const activeCategory = (await searchParams).category ?? 'all'
   const filtered =
     activeCategory === 'all'
       ? posts

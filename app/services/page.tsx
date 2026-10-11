@@ -110,9 +110,9 @@ export default function ServicesPage() {
         </div>
 
         {/* How We Work */}
-        <section className="bg-white py-20">
+        <section className="bg-white py-10 md:py-20">
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-14">
+            <div className="text-center mb-8 md:mb-14">
               <p className="text-xs text-brand-rose uppercase tracking-[3px] mb-4">Our Process</p>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-brand-dark">
                 How We Work
@@ -120,7 +120,7 @@ export default function ServicesPage() {
             </div>
 
             {/* 데스크톱: 가로 스텝 / 모바일: 2×2 그리드 */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-0 relative">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-6 md:gap-0 relative">
               {/* 연결선 — 데스크톱만 */}
               <div className="hidden md:block absolute top-7 left-[12.5%] right-[12.5%] border-t border-dashed border-brand-border z-0" />
 
@@ -147,20 +147,20 @@ export default function ServicesPage() {
                 },
               ].map((step, i) => (
                 <AnimateOnScroll key={step.num} delay={i * 180}>
-                  <div className="relative z-10 flex flex-col items-center text-center px-4">
-                    <div className="w-14 h-14 rounded-full bg-white border-2 border-brand-border flex items-center justify-center mb-5">
+                  <div className="relative z-10 flex flex-col items-center text-center px-1 md:px-4">
+                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-white border-2 border-brand-border flex items-center justify-center mb-3 md:mb-5">
                       <span className="font-display font-bold text-sm text-brand-burgundy">{step.num}</span>
                     </div>
-                    <h3 className="font-display font-bold text-sm text-brand-dark mb-2 leading-snug">
+                    <h3 className="font-display font-bold text-sm text-brand-dark md:mb-2 leading-snug">
                       {step.title}
                     </h3>
-                    <p className="text-xs text-brand-dark/55 leading-relaxed">{step.desc}</p>
+                    <p className="hidden md:block text-xs text-brand-dark/55 leading-relaxed">{step.desc}</p>
                   </div>
                 </AnimateOnScroll>
               ))}
             </div>
 
-            <div className="mt-12 text-center">
+            <div className="mt-8 md:mt-12 text-center">
               <Link
                 href="/contact"
                 className="inline-block bg-brand-burgundy text-brand-cream text-sm px-7 py-3 rounded-sm hover:bg-brand-dark transition-colors"

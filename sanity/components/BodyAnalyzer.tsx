@@ -1,300 +1,138 @@
 'use client'
 
-import { useFormValue } from 'sanity'
-import type { ArrayOfObjectsInputProps } from 'sanity'
-import { Card, Stack, Flex, Text, Badge, Box } from '@sanity/ui'
+import { useEffect, useState } from 'react'
+import { PatchEvent, set, useFormValue, type ArrayOfObjectsInputProps } from 'sanity'
+import { Button, Card, Stack, Text } from '@sanity/ui'
+import { fingerprint, reviewDraft, selectedEdit, type ReviewSuggestion, type WritingGuide } from '../../lib/editorial/workflow'
+import { GUIDE_EVENT, guideStorageKey, useBrief } from './EditorialAssistant'
 
-// ── Portable Text 타입 ───────────────────────────────────────────
-type PTChild = {
-  _type: string
-  text?: string
-  marks?: string[]
-}
-
-type PTBlock = {
-  _type: string
-  _key: string
+type BodyBlock = {
+  _key?: string
+  _type?: string
   style?: string
-  children?: PTChild[]
-  listItem?: string
-  level?: number
-  asset?: unknown
   alt?: string
+  children?: { _key?: string; text?: string }[]
 }
 
-// ── 텍스트 추출 헬퍼 ─────────────────────────────────────────────
-function blockText(block: PTBlock): string {
-  return (block.children ?? []).map((c) => c.text ?? '').join('')
-}
+const writingTips = [
+  '독자의 핵심 질문에 먼저 직접 답하고, 이유·방법과 적용 조건을 이어서 설명하세요.',
+  '자격·연도·마감일·성과처럼 확인이 필요한 내용은 실제 근거와 사례를 대조하세요. 미확인 내용은 확인 필요로 남깁니다.',
+  '이 사이트는 글 제목을 H1으로 출력합니다. 본문은 의미 있는 H2 절과 그 아래 H3 세부 절로 구성하세요. 모든 소제목을 질문형으로 만들 필요는 없습니다.',
+  '관련 글이나 공식 자료가 독자에게 도움이 될 때 링크하고, “여기” 대신 연결 대상이 드러나는 구체적인 앵커 문구를 쓰세요. 링크 개수는 정해져 있지 않습니다.',
+  '이미지에는 실제 내용을 설명하는 alt를 적고, 장식 이미지는 문맥에 맞게 처리하세요.',
+  'FAQ는 독자가 실제로 묻는 질문만 AEO / GEO 탭에 추가하세요. 본문과 같은 답을 불필요하게 반복하지 않습니다.',
+  '중심 주제와 검색 표현은 문맥에 맞게 자연스럽게 사용하세요. 글 길이·소제목 수·키워드 반복 횟수나 점수 목표는 없습니다.',
+]
 
-function totalText(blocks: PTBlock[]): string {
-  return blocks
-    .filter((b) => b._type === 'block')
-    .map(blockText)
-    .join(' ')
-}
-
-// ── 분석 결과 타입 ───────────────────────────────────────────────
-type Status = 'pass' | 'warn' | 'fail' | 'info'
-
-type CheckResult = {
-  key: string
-  status: Status
-  message: string
-  hint?: string
-}
-
-// ── 분석 함수 ────────────────────────────────────────────────────
-function analyzeBody(blocks: PTBlock[], focusKeyphrase: string): CheckResult[] {
-  const textBlocks = blocks.filter((b) => b._type === 'block')
-  const imageBlocks = blocks.filter((b) => b._type === 'image')
-
-  // H태그
-  const h1Blocks = textBlocks.filter((b) => b.style === 'h1')
-  const h2Blocks = textBlocks.filter((b) => b.style === 'h2')
-  const listBlocks = textBlocks.filter((b) => !!b.listItem)
-  const normalBlocks = textBlocks.filter((b) => !b.style || b.style === 'normal')
-
-  // 전체 글자 수
-  const totalLen = totalText(blocks).replace(/\s+/g, '').length
-
-  // 결과 배열
-  const results: CheckResult[] = []
-
-  // 1. H1 없음
-  if (h1Blocks.length === 0) {
-    results.push({ key: 'H1', status: 'pass', message: 'H1 블록 없음 ✓' })
-  } else {
-    results.push({ key: 'H1', status: 'fail', message: `H1 블록 ${h1Blocks.length}개 감지 — 제거 필요` })
-  }
-
-  // 2. H2 개수
-  const h2Hint = '일반글(800~1500자) → 3개 권장 · 심층가이드(1500~3000자) → 4~5개 권장'
-  if (h2Blocks.length >= 3 && h2Blocks.length <= 5) {
-    results.push({ key: 'H2', status: 'pass', message: `H2 ${h2Blocks.length}개 (권장: 3~5개)`, hint: h2Hint })
-  } else if (h2Blocks.length >= 1) {
-    results.push({ key: 'H2', status: 'warn', message: `H2 ${h2Blocks.length}개 (권장: 3~5개)`, hint: h2Hint })
-  } else {
-    results.push({ key: 'H2', status: 'fail', message: 'H2 없음 — 챕터 제목을 추가하세요', hint: h2Hint })
-  }
-
-  // 3. Featured Snippet — H2가 질문형인지
-  if (h2Blocks.length > 0) {
-    const questionH2 = h2Blocks.filter((b) => blockText(b).trim().includes('?'))
-    const ratio = questionH2.length / h2Blocks.length
-    if (ratio >= 0.5) {
-      results.push({ key: 'Featured Snippet', status: 'pass', message: `H2 중 질문형 ${questionH2.length}/${h2Blocks.length}개` })
-    } else if (questionH2.length > 0) {
-      results.push({ key: 'Featured Snippet', status: 'warn', message: `H2 중 질문형 ${questionH2.length}/${h2Blocks.length}개 (절반 이상 권장)` })
-    } else {
-      results.push({ key: 'Featured Snippet', status: 'warn', message: 'H2를 질문형(?)으로 작성하면 검색 노출 유리' })
-    }
-  }
-
-  // 4. 문단 길이 — 300자 초과 문단 감지
-  const longBlocks = normalBlocks.filter((b) => blockText(b).length > 300)
-  const warnBlocks = normalBlocks.filter((b) => {
-    const len = blockText(b).length
-    return len > 200 && len <= 300
-  })
-  if (longBlocks.length > 0) {
-    results.push({ key: '문단 길이', status: 'fail', message: `300자 초과 문단 ${longBlocks.length}개 — 쪼개세요` })
-  } else if (warnBlocks.length > 0) {
-    results.push({ key: '문단 길이', status: 'warn', message: `200~300자 문단 ${warnBlocks.length}개 (한 문단 200자 이내 권장)` })
-  } else {
-    results.push({ key: '문단 길이', status: 'pass', message: '모든 문단 200자 이내 ✓' })
-  }
-
-  // 5. Bold 남용 — 문단당 strong 마크 개수
-  const boldAbuse = normalBlocks.filter((b) => {
-    const boldCount = (b.children ?? []).filter((c) => c.marks?.includes('strong')).length
-    return boldCount >= 4
-  })
-  const boldWarn = normalBlocks.filter((b) => {
-    const boldCount = (b.children ?? []).filter((c) => c.marks?.includes('strong')).length
-    return boldCount === 3
-  })
-  const boldHint = '문단당 0~2개 ✅ · 3개 ⚠️ · 4개 이상 ❌ — 강조가 많아질수록 효과 희석'
-  if (boldAbuse.length > 0) {
-    results.push({ key: 'Bold', status: 'fail', message: `Bold 4개+ 문단 ${boldAbuse.length}개 — 남용 금지`, hint: boldHint })
-  } else if (boldWarn.length > 0) {
-    results.push({ key: 'Bold', status: 'warn', message: `Bold 3개 문단 ${boldWarn.length}개 (문단당 1~2개 권장)`, hint: boldHint })
-  } else {
-    results.push({ key: 'Bold', status: 'pass', message: 'Bold 사용 적정 ✓', hint: boldHint })
-  }
-
-  // 6. 키워드 — 첫 문단에 포함
-  if (focusKeyphrase) {
-    const firstNormal = normalBlocks[0]
-    const firstText = firstNormal ? blockText(firstNormal).toLowerCase() : ''
-    if (firstText.includes(focusKeyphrase.toLowerCase())) {
-      results.push({ key: '키워드 (첫 문단)', status: 'pass', message: `첫 문단에 "${focusKeyphrase}" 포함 ✓` })
-    } else {
-      results.push({ key: '키워드 (첫 문단)', status: 'fail', message: `첫 문단에 "${focusKeyphrase}" 없음` })
-    }
-  } else {
-    results.push({ key: '키워드 (첫 문단)', status: 'info', message: 'Content 탭 상단 Focus Keyphrase를 먼저 입력하세요' })
-  }
-
-  // 6-1. 키워드 밀도
-  if (focusKeyphrase && totalLen >= 600) {
-    const fullText = totalText(blocks).toLowerCase()
-    const kp = focusKeyphrase.toLowerCase()
-    let count = 0
-    let pos = 0
-    while ((pos = fullText.indexOf(kp, pos)) !== -1) { count++; pos += kp.length }
-    const per1000 = (count / totalLen) * 1000
-    if (count === 0) {
-      results.push({ key: '키워드 밀도', status: 'fail', message: `"${focusKeyphrase}" 본문 전체 미포함`, hint: '1000자당 1~2회 사용 권장' })
-    } else if (per1000 > 2) {
-      results.push({ key: '키워드 밀도', status: 'warn', message: `${count}회 사용 (1000자당 ${per1000.toFixed(1)}회) — 과다`, hint: '1000자당 1~2회 권장 · 초과 시 keyword stuffing으로 감지될 수 있음' })
-    } else {
-      results.push({ key: '키워드 밀도', status: 'pass', message: `${count}회 사용 (1000자당 ${per1000.toFixed(1)}회) ✓`, hint: '1000자당 1~2회 권장' })
-    }
-  }
-
-  // 6-2. 마무리 키워드 — 마지막 문단에 포함
-  if (focusKeyphrase && normalBlocks.length > 1) {
-    const lastNormal = normalBlocks[normalBlocks.length - 1]
-    const lastText = blockText(lastNormal).toLowerCase()
-    if (lastText.includes(focusKeyphrase.toLowerCase())) {
-      results.push({ key: '마무리 키워드', status: 'pass', message: `마지막 문단에 "${focusKeyphrase}" 포함 ✓` })
-    } else {
-      results.push({ key: '마무리 키워드', status: 'warn', message: `마지막 문단에 "${focusKeyphrase}" 없음`, hint: '구글은 마지막 문단도 중요하게 봄 — 마무리 문장에 자연스럽게 포함' })
-    }
-  }
-
-  // 7. 리스트 — 600자 이상 글에서만 체크
-  if (totalLen >= 600) {
-    if (listBlocks.length >= 1) {
-      results.push({ key: '리스트', status: 'pass', message: `리스트 ${listBlocks.length}개 항목 ✓` })
-    } else {
-      results.push({ key: '리스트', status: 'warn', message: '번호/불릿 리스트 없음 — 순서 있는 내용은 리스트로' })
-    }
-  }
-
-  // 8. 이미지 Alt text
-  if (imageBlocks.length > 0) {
-    const noAlt = imageBlocks.filter((b) => !b.alt || String(b.alt).trim() === '')
-    if (noAlt.length === 0) {
-      results.push({ key: '이미지 Alt', status: 'pass', message: `이미지 ${imageBlocks.length}개 모두 Alt text 있음 ✓` })
-    } else {
-      results.push({ key: '이미지 Alt', status: 'fail', message: `이미지 ${imageBlocks.length}개 중 ${noAlt.length}개 Alt text 없음` })
-    }
-  }
-
-  // 9. 글 길이
-  if (totalLen >= 800 && totalLen <= 3000) {
-    results.push({ key: '글 길이', status: 'pass', message: `${totalLen.toLocaleString()}자 (권장 800~3000자) ✓` })
-  } else if (totalLen >= 600 && totalLen < 800) {
-    results.push({ key: '글 길이', status: 'warn', message: `${totalLen.toLocaleString()}자 — 800자 이상 권장` })
-  } else if (totalLen > 3000) {
-    results.push({ key: '글 길이', status: 'warn', message: `${totalLen.toLocaleString()}자 — 심층 가이드가 아니면 3000자 이내 권장` })
-  } else {
-    results.push({ key: '글 길이', status: 'fail', message: `${totalLen.toLocaleString()}자 — 600자 이상 작성하세요` })
-  }
-
-  // 9-1. H3 구조 — H2 없이 H3 단독 사용 감지
-  const h3Blocks = textBlocks.filter((b) => b.style === 'h3')
-  if (h3Blocks.length > 0) {
-    let seenH2 = false
-    let h3BeforeH2 = false
-    for (const block of textBlocks) {
-      if (block.style === 'h2') seenH2 = true
-      if (block.style === 'h3' && !seenH2) { h3BeforeH2 = true; break }
-    }
-    if (!seenH2) {
-      results.push({ key: 'H3 구조', status: 'fail', message: `H3 ${h3Blocks.length}개 있지만 H2 없음 — H3는 H2 아래에만 사용`, hint: 'H3는 H2 챕터 안의 세부항목에만 사용' })
-    } else if (h3BeforeH2) {
-      results.push({ key: 'H3 구조', status: 'fail', message: 'H2 이전에 H3 사용됨 — 순서 확인 필요', hint: 'H3는 H2 챕터 안의 세부항목에만 사용' })
-    } else {
-      results.push({ key: 'H3 구조', status: 'pass', message: `H3 ${h3Blocks.length}개 — H2 아래 정상 사용 ✓` })
-    }
-  }
-
-  // 10. FAQ 패턴 감지
-  const faqPattern = /Q\s*[:：]|자주\s*묻|FAQ|질문과\s*답|흔히\s*묻/i
-  const faqInBody = textBlocks.some((b) => faqPattern.test(blockText(b)))
-  if (faqInBody) {
-    results.push({ key: 'FAQ', status: 'fail', message: 'Body에 FAQ 패턴 감지 — AEO 탭으로 옮기세요' })
-  } else {
-    results.push({ key: 'FAQ', status: 'pass', message: 'FAQ 패턴 없음 ✓' })
-  }
-
-  return results
-}
-
-// ── 상태별 스타일 ────────────────────────────────────────────────
-function statusIcon(status: Status) {
-  return { pass: '✅', warn: '⚠️', fail: '❌', info: 'ℹ️' }[status]
-}
-
-function statusTone(status: Status): 'positive' | 'caution' | 'critical' | 'default' {
-  return { pass: 'positive', warn: 'caution', fail: 'critical', info: 'default' }[status] as
-    | 'positive'
-    | 'caution'
-    | 'critical'
-    | 'default'
-}
-
-// ── 메인 컴포넌트 ────────────────────────────────────────────────
 export function BodyAnalyzerInput(props: ArrayOfObjectsInputProps) {
-  const blocks = (props.value ?? []) as PTBlock[]
-  const focusKeyphrase = (useFormValue(['focusKeyphrase']) as string | undefined) ?? ''
+  const blocks = (props.value ?? []) as BodyBlock[]
+  const title = String(useFormValue(['title']) ?? '')
+  const id = String(useFormValue(['_id']) ?? 'new-post')
+  const brief = useBrief()
+  const currentFingerprint = fingerprint({ title, brief, blocks })
+  const [review, setReview] = useState<{ fingerprint: string; suggestions: ReviewSuggestion[] } | null>(null)
+  const [edits, setEdits] = useState<Record<string, string>>({})
+  const [rejected, setRejected] = useState<string[]>([])
+  const [applied, setApplied] = useState<string[]>([])
+  const [guide, setGuide] = useState<WritingGuide | null>(null)
+  const [message, setMessage] = useState('')
 
-  const checks = analyzeBody(blocks, focusKeyphrase)
+  useEffect(() => {
+    const readGuide = () => {
+      try {
+        const saved = sessionStorage.getItem(guideStorageKey(id))
+        setGuide(saved ? JSON.parse(saved) as WritingGuide : null)
+      } catch { setGuide(null) }
+    }
+    readGuide()
+    window.addEventListener(GUIDE_EVENT, readGuide)
+    return () => window.removeEventListener(GUIDE_EVENT, readGuide)
+  }, [id])
 
-  const passCount = checks.filter((c) => c.status === 'pass').length
-  const failCount = checks.filter((c) => c.status === 'fail').length
-  const warnCount = checks.filter((c) => c.status === 'warn').length
+  function runReview() {
+    const suggestions = reviewDraft(title, brief, blocks)
+    setReview({ fingerprint: currentFingerprint, suggestions })
+    setEdits(Object.fromEntries(suggestions.filter((item) => item.originalText !== undefined).map((item) => [item.id, item.originalText ?? ''])))
+    setRejected([])
+    setApplied([])
+    setMessage(suggestions.length ? `${suggestions.length}개 확인 항목을 찾았습니다. 사실 여부는 사람이 확인해야 합니다.` : '로컬 규칙에서 확인 항목을 찾지 못했습니다. 사실 검증과 전문가 검토는 미실행입니다.')
+  }
 
-  const overallTone =
-    failCount > 0 ? 'critical' : warnCount > 0 ? 'caution' : 'positive'
+  function applySuggestion(item: ReviewSuggestion) {
+    const result = selectedEdit(item, blocks, review?.fingerprint ?? '', currentFingerprint, edits[item.id])
+    if (!result.ok) { setMessage(result.reason); return }
+    props.onChange(PatchEvent.from(set(result.text, [{ _key: result.blockKey }, 'children', { _key: result.childKey }, 'text'])))
+    setApplied((previous) => [...previous, item.id])
+    setMessage('선택한 문장 하나만 바꿨습니다. 다른 제안은 오래된 상태가 되므로 다시 점검하세요.')
+  }
+  let seenH2 = false
+  let h3BeforeH2 = false
+  for (const block of blocks) {
+    if (block._type !== 'block') continue
+    if (block.style === 'h2') seenH2 = true
+    if (block.style === 'h3' && !seenH2) h3BeforeH2 = true
+  }
+
+  const notes = [
+    blocks.some((block) => block._type === 'block' && block.style === 'h1')
+      ? '본문에 H1이 있습니다. 제목이 이미 H1으로 출력되므로 본문 절에는 H2/H3을 사용하세요.'
+      : null,
+    h3BeforeH2 ? 'H2보다 앞에 H3이 있습니다. 제목 계층을 확인하세요.' : null,
+    blocks.some((block) => block._type === 'image' && !block.alt?.trim())
+      ? '본문 이미지 중 alt가 비어 있습니다. 이미지의 역할과 실제 내용을 확인하세요.'
+      : null,
+  ].filter((note): note is string => Boolean(note))
 
   return (
     <Stack space={4}>
+      <Card padding={4} radius={2} tone="caution" border>
+        <details open>
+          <summary style={{ cursor: 'pointer', fontWeight: 600 }}>✍️ Body 작성 팁 · 펼치기/접기</summary>
+          <Stack space={3} paddingTop={3}>
+            {writingTips.map((tip) => <Text key={tip} size={1}>{tip}</Text>)}
+            <Text size={1} muted>편집 안내입니다. 검색엔진의 필수 규칙이나 자동 SEO 점수가 아니며 문서 필드로 저장되지 않습니다.</Text>
+          </Stack>
+        </details>
+      </Card>
       {props.renderDefault(props)}
-
-      {blocks.length > 0 && (
-        <Card padding={4} radius={2} tone={overallTone} border>
-          <Stack space={3}>
-            {/* 헤더 */}
-            <Flex align="center" justify="space-between">
-              <Text size={1} weight="semibold">
-                Body 분석
-              </Text>
-              <Flex gap={2}>
-                <Badge tone="positive">{passCount}개 통과</Badge>
-                {warnCount > 0 && <Badge tone="caution">{warnCount}개 주의</Badge>}
-                {failCount > 0 && <Badge tone="critical">{failCount}개 실패</Badge>}
-              </Flex>
-            </Flex>
-
-            <Box style={{ borderTop: '1px solid var(--card-border-color)' }} />
-
-            {/* 체크 목록 */}
-            {checks.map((c) => (
-              <Flex key={c.key} gap={3} align="flex-start">
-                <Box style={{ flexShrink: 0, width: 80 }}>
-                  <Badge
-                    tone={statusTone(c.status)}
-                    style={{ textAlign: 'center', width: '100%' }}
-                  >
-                    {c.key}
-                  </Badge>
-                </Box>
-                <Stack space={1}>
-                  <Text size={1} style={{ lineHeight: 1.6 }}>
-                    {statusIcon(c.status)} {c.message}
-                  </Text>
-                  {c.hint && (
-                    <Text size={0} muted style={{ lineHeight: 1.5 }}>
-                      {c.hint}
-                    </Text>
-                  )}
-                </Stack>
-              </Flex>
-            ))}
+      {guide && <Card padding={3} radius={2} border><details><summary style={{ cursor: 'pointer', fontWeight: 600 }}>선택한 작성 가이드</summary>
+        <Stack space={2} paddingTop={3}>
+          <Text size={1}>독자: {guide.audience} · 질문: {guide.centralQuestion}</Text>
+          {guide.selectedTitle && <Text size={1}>선택 제목: {guide.selectedTitle}</Text>}
+          {guide.sections.map((section, index) => <Text size={1} key={index}>{index + 1}. {section.heading} — {section.instruction} / 근거: {section.facts} / 조건: {section.conditions} / 피할 표현: {section.avoid}</Text>)}
+          {guide.briefFingerprint !== fingerprint(brief) && <Text size={1}>기획이 바뀌었습니다. 가이드를 다시 만드세요.</Text>}
+        </Stack>
+      </details></Card>}
+      <Card padding={3} radius={2} border><Stack space={3}>
+        <Text weight="semibold">원고 점검 · 로컬 규칙 기반</Text>
+        <Text size={1}>제목·기획·현재 본문을 비교합니다. 사실의 진위나 전문가 검토 완료를 판정하지 않습니다.</Text>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <Button text={review ? '원고 다시 점검' : '원고 점검'} onClick={runReview} />
+          {review && <Button text="점검 결과 닫기" mode="ghost" onClick={() => { setReview(null); setMessage('점검 결과만 닫았습니다. 원고는 유지됩니다.') }} />}
+        </div>
+        {message && <Text size={1}>{message}</Text>}
+        {review && review.fingerprint !== currentFingerprint && <Text size={1}>⚠ 원고나 기획이 점검 후 바뀌었습니다. 아래 제안은 오래되었습니다.</Text>}
+        {review?.suggestions.map((item) => <Card key={item.id} padding={3} border tone={rejected.includes(item.id) ? 'transparent' : 'caution'}><Stack space={2}>
+          <Text size={1} weight="semibold">{item.problem} · 규칙 {item.rule}</Text>
+          {item.originalText && <Text size={1}>위치: “{item.originalText.slice(0, 100)}”</Text>}
+          <Text size={1}>이유: {item.reason}</Text><Text size={1}>확인할 사실: {item.factToCheck}</Text>
+          <Text size={1}>최소 수정 방향: {item.minimalEdit}</Text>
+          {item.originalText !== undefined && !rejected.includes(item.id) && !applied.includes(item.id) && <>
+            <textarea aria-label={`${item.problem} 수정 문장`} style={{ width: '100%', minHeight: 64 }} value={edits[item.id] ?? item.originalText} onChange={(event) => setEdits({ ...edits, [item.id]: event.target.value })} />
+            <div style={{ display: 'flex', gap: 8 }}>
+              <Button text="이 문장만 적용" disabled={review.fingerprint !== currentFingerprint} onClick={() => applySuggestion(item)} />
+              <Button text="거절" mode="ghost" onClick={() => setRejected((previous) => [...previous, item.id])} />
+            </div>
+          </>}
+          {rejected.includes(item.id) && <Text size={1}>거절됨 · 원고 유지</Text>}
+          {applied.includes(item.id) && <Text size={1}>적용됨</Text>}
+        </Stack></Card>)}
+      </Stack></Card>
+      {notes.length > 0 && (
+        <Card padding={3} radius={2} tone="caution" border>
+          <Stack space={2}>
+            <Text size={1} weight="semibold">현재 본문에서 확인할 점</Text>
+            {notes.map((note) => <Text key={note} size={1}>{note}</Text>)}
           </Stack>
         </Card>
       )}
