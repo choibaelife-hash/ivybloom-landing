@@ -14,7 +14,7 @@ export default function ImageGenerator({ title, summary, body, context, onBusy, 
   const [message, setMessage] = useState("");
   const [preview, setPreview] = useState<{ name: string; dataUrl: string; bytes: number; width: number; height: number } | undefined>(() => {
     const selected = context.pending?.mainImage;
-    return selected?.name.startsWith("generated-cover-") ? { ...selected, bytes: Math.floor(selected.dataUrl.split(",")[1].length * 3 / 4), width: 1024, height: 1024 } : undefined;
+    return selected?.name.startsWith("generated-cover-") ? { ...selected, bytes: Math.floor(selected.dataUrl.split(",")[1].length * 3 / 4), width: 0, height: 0 } : undefined;
   });
   const [reference, setReference] = useState<{ name: string; dataUrl: string }>();
   async function attachReference(file: File) {
@@ -38,7 +38,7 @@ export default function ImageGenerator({ title, summary, body, context, onBusy, 
       const response = await fetch("/admin/ai/image", { method: "POST", headers: { "Content-Type": "application/json", "x-ivy-admin-request": "1" }, body: JSON.stringify({ prompt, title, summary, body: article, referenceImage: reference?.dataUrl }) });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "이미지를 생성하지 못했습니다.");
-      setPreview(await optimizeCover(data.image.dataUrl, data.image.name));
+      setPreview(await optimizeCover(data.image.dataUrl, data.image.name, true));
     } catch (error) { setError(error instanceof Error ? error.message : "이미지를 생성하지 못했습니다."); }
     finally { setBusy(false); onBusy(false); }
   }
@@ -50,14 +50,14 @@ export default function ImageGenerator({ title, summary, body, context, onBusy, 
     </div>
     <label htmlFor="image-prompt">추가 요청사항 (선택)</label>
     <textarea id="image-prompt" value={prompt} onChange={e => setPrompt(e.target.value)} disabled={busy || disabled || !active} maxLength={1500} rows={3} placeholder="비워두면 글 내용에 맞춰 만듭니다. 예: 참고 사진의 분위기로 새 디자인 만들기, 또는 제목 문구만 변경" />
-    {!preview && <HelpTip text="글 제목·요약·본문을 참고해 1:1 정사각형 이미지를 만듭니다. 생성 시 이 내용·요청사항·첨부한 참고 사진이 OpenAI에 전달되며 API 이용 요금이 발생합니다."><button className={s.secondary} disabled={busy || disabled || !active || (!title.trim() && !article.trim())} onClick={generate}>{busy ? "이미지를 생성하고 있습니다…" : "이미지 1장 생성"}</button></HelpTip>}
+    {!preview && <HelpTip text="글 제목·요약·본문을 참고해 Articles 목록에 맞는 16:9 가로형 이미지를 만듭니다. 생성 시 이 내용·요청사항·첨부한 참고 사진이 OpenAI에 전달되며 API 이용 요금이 발생합니다."><button className={s.secondary} disabled={busy || disabled || !active || (!title.trim() && !article.trim())} onClick={generate}>{busy ? "이미지를 생성하고 있습니다…" : "이미지 1장 생성"}</button></HelpTip>}
     {error && <p role="alert" className={s.error}>{error}</p>}
     {message && <p role="status" className={s.success}>{message}</p>}
     {preview && <div className={s.generatedPreview}>
       <details key={preview.name} open className={s.imagePreviewDetails}>
         <summary>생성 이미지 미리보기</summary>
-        <img src={preview.dataUrl} alt="생성된 대표 이미지 미리보기" />
-        <p className={s.hint}>{preview.width} × {preview.height}px · {(preview.bytes / 1024).toFixed(0)}KB</p>
+        <img src={preview.dataUrl} alt="생성된 대표 이미지 미리보기" onLoad={event => { const { naturalWidth, naturalHeight } = event.currentTarget; if (preview.width !== naturalWidth || preview.height !== naturalHeight) setPreview({ ...preview, width: naturalWidth, height: naturalHeight }); }} />
+        <p className={s.hint}>{preview.width > 0 ? `${preview.width} × ${preview.height}px · ` : ""} {(preview.bytes / 1024).toFixed(0)}KB</p>
       </details>
       <div className={s.actions}>
         <button className={s.primary} disabled={busy || disabled || !active} onClick={() => {

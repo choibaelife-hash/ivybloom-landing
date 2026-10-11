@@ -1,5 +1,5 @@
 // Resize and compress selected cover images in the browser before uploading.
-export async function optimizeCover(dataUrl: string, name: string) {
+export async function optimizeCover(dataUrl: string, name: string, articleCover = false) {
   const image = new Image();
   image.src = dataUrl;
   await image.decode().catch(() => { throw new Error("이미지를 읽지 못했습니다."); });
@@ -12,15 +12,19 @@ export async function optimizeCover(dataUrl: string, name: string) {
     return { name, dataUrl, bytes, width: image.naturalWidth, height: image.naturalHeight };
   }
   const canvas = document.createElement("canvas");
-  const scale = Math.min(1, 1600 / Math.max(image.naturalWidth, image.naturalHeight));
-  let width = Math.max(1, Math.round(image.naturalWidth * scale));
-  let height = Math.max(1, Math.round(image.naturalHeight * scale));
+  const sourceWidth = articleCover ? Math.min(image.naturalWidth, image.naturalHeight * 16 / 9) : image.naturalWidth;
+  const sourceHeight = articleCover ? Math.min(image.naturalHeight, image.naturalWidth * 9 / 16) : image.naturalHeight;
+  const scale = Math.min(1, 1600 / Math.max(sourceWidth, sourceHeight));
+  let width = Math.max(1, Math.round(sourceWidth * scale));
+  let height = Math.max(1, Math.round(sourceHeight * scale));
   let quality = 0.82, blob: Blob | null = null;
   for (let attempt = 0; attempt < 8; attempt++) {
     canvas.width = width; canvas.height = height;
     const context = canvas.getContext("2d");
     if (!context) throw new Error("이미지 압축을 지원하지 않는 브라우저입니다.");
-    context.drawImage(image, 0, 0, width, height);
+    if (articleCover)
+      context.drawImage(image, (image.naturalWidth - sourceWidth) / 2, (image.naturalHeight - sourceHeight) / 2, sourceWidth, sourceHeight, 0, 0, width, height);
+    else context.drawImage(image, 0, 0, width, height);
     blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, "image/webp", quality));
     if (!blob) throw new Error("이미지를 압축하지 못했습니다.");
     if (blob.size <= 400 * 1024) break;

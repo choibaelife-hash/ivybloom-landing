@@ -21,7 +21,7 @@ env.OPENAI_API_KEY = 'fixture-key';
 reply = () => Response.json({ data: [{ b64_json: Buffer.from([255, 216, 255, 224, 0, 1]).toString('base64') }] });
 const generated = await image.generateImage(input);
 assert.match(generated.dataUrl, /^data:image\/jpeg;base64,/); assert.match(generated.name, /\.jpg$/);
-const body = JSON.parse(calls.at(-1).options.body); assert.equal(body.n, 1); assert.equal(body.output_format, 'jpeg'); assert.equal(body.size, '1024x1024');
+const body = JSON.parse(calls.at(-1).options.body); assert.equal(body.n, 1); assert.equal(body.output_format, 'jpeg'); assert.equal(body.size, '1536x1024'); assert.match(body.prompt, /16:9/); assert.match(body.prompt, /15% away/);
 const referenceImage = 'data:image/png;base64,' + Buffer.from([137,80,78,71,13,10,26,10,0,0,0,0]).toString('base64');
 const editInput = image.validateImageInput({ title: 'Reading', prompt: 'Change only the headline', referenceImage });
 await image.generateImage(editInput);
@@ -29,7 +29,7 @@ assert.equal(calls.at(-1).url, 'https://api.openai.com/v1/images/edits');
 const editBody = calls.at(-1).options.body;
 assert.ok(editBody instanceof FormData);
 assert.equal(editBody.get('image[]').type, 'image/png');
-assert.equal(editBody.get('size'), '1024x1024');
+assert.equal(editBody.get('size'), '1536x1024');
 assert.match(editBody.get('prompt'), /Follow the user.s additional visual request/);
 assert.ok(!editBody.get('prompt').includes(referenceImage));
 assert.equal(calls.at(-1).options.headers['Content-Type'], undefined);
@@ -52,7 +52,7 @@ const jsx = { jsx: (type, props) => ({ type, props }), jsxs: (type, props) => ({
 let pendingWrites = 0, hook = 0, previewState;
 const component = load('components/admin/ImageGenerator.tsx', {
   react: { useState: () => { const i = hook++; return [i === 0 ? 'A desk' : i === 1 ? false : i === 4 ? previewState : '', v => { if (i === 4) previewState = v; }]; } },
-  '@/lib/admin/image-client': { optimizeCover: async (dataUrl, name) => ({ dataUrl, name, bytes: 100, width: 1024, height: 1024 }) }, 'react/jsx-runtime': jsx, './HelpTip': { default: () => null }, './local-studio.module.css': { default: {} },
+  '@/lib/admin/image-client': { optimizeCover: async (dataUrl, name, articleCover) => { assert.equal(articleCover, true); return { dataUrl, name, bytes: 100, width: 1536, height: 864 }; } }, 'react/jsx-runtime': jsx, './HelpTip': { default: () => null }, './local-studio.module.css': { default: {} },
 }).default;
 const props = { title: 'Reading', summary: 'Practice', body: [{ children: [{ text: 'Verified article facts' }] }], context: { setPending: () => pendingWrites++ }, onBusy: () => {}, disabled: false, active: true, onSelect: () => {} };
 function buttons(node, list = []) {
@@ -77,10 +77,15 @@ console.log('Image validation, authenticated routes and generation limits passed
 let dimensions = [4000, 2000], drawn = [];
 class FixtureImage { naturalWidth = dimensions[0]; naturalHeight = dimensions[1]; async decode() {} }
 class FixtureReader { async readAsDataURL(blob) { this.result = `data:${blob.type};base64,${Buffer.from(await blob.arrayBuffer()).toString("base64")}`; this.onload(); } }
-const canvas = { width: 0, height: 0, getContext: () => ({ drawImage: (_image, _x, _y, w, h) => drawn.push([w, h]) }), toBlob(callback, type, quality) { callback(new Blob([new Uint8Array(Math.ceil(this.width * this.height * quality))], { type })); } };
+const canvas = { width: 0, height: 0, getContext: () => ({ drawImage: (...args) => drawn.push(args.slice(1)) }), toBlob(callback, type, quality) { callback(new Blob([new Uint8Array(Math.ceil(this.width * this.height * quality))], { type })); } };
 const compressor = load('lib/admin/image-client.ts', {}, { Image: FixtureImage, FileReader: FixtureReader, document: { createElement: () => canvas } });
 const cover = await compressor.optimizeCover('data:image/jpeg;base64,fixture', 'photo.jpg');
 assert.match(cover.name, /\.webp$/); assert.match(cover.dataUrl, /^data:image\/webp;base64,/); assert.ok(cover.bytes <= 400 * 1024); assert.ok(cover.width <= 1600); assert.ok(Math.abs(cover.width / cover.height - 2) < 0.01);
+dimensions = [1536, 1024];
+const landscape = await compressor.optimizeCover('data:image/jpeg;base64,fixture', 'generated.jpg', true);
+assert.ok(Math.abs(landscape.width / landscape.height - 16 / 9) < 0.005);
+assert.ok(landscape.bytes <= 400 * 1024);
+assert.deepEqual(drawn.find(args => args.length === 8)?.slice(0, 4), [0, 80, 1536, 864]);
 const gif = 'data:image/gif;base64,R0lGODlh'; const count = drawn.length;
 assert.equal((await compressor.optimizeCover(gif, 'moving.gif')).dataUrl, gif); assert.equal(drawn.length, count);
 dimensions = [30000, 30000]; await assert.rejects(compressor.optimizeCover('data:image/png;base64,fixture', 'large.png'), /너무 큽니다/);
