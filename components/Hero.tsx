@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
 
 export default function Hero() {
@@ -32,12 +34,14 @@ export default function Hero() {
 
       <section className="relative min-h-[48vh] flex flex-col overflow-hidden">
         {/* 배경 이미지 — 하늘이 보이는 캠퍼스 */}
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1600&q=80')",
-          }}
+        <Image
+          src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=1600&q=80"
+          alt=""
+          fill
+          sizes="100vw"
+          loading="eager"
+          fetchPriority="high"
+          className="object-cover object-center"
         />
         {/* 오버레이 — 균일한 반투명 */}
         <div className="absolute inset-0 bg-brand-dark/55" />

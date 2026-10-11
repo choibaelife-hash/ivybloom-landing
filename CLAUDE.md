@@ -21,6 +21,7 @@
 - 다음에 한국어 전환 얘기가 나오면 이 두 미리보기를 기준으로 시작할 것.
 
 ### 최근 완료된 작업 (세션 로그)
+- 2026-10-11: Pretendard를 로컬 가변 분할 글꼴로 제공하고 외부 CDN CSS 연결 제거. 홈 배경 사진을 반응형 `next/image`로 변경하고 즉시·우선 로딩 적용. 배포용 빌드와 모바일·PC 표시, 한글 글꼴 확인 완료. 운영 배포·PageSpeed 재검사 미실행.
 - `/services` 02번 에세이 컨설팅: "여러 학교 유연하게" → "타겟 학교 기준 에세이 준비 과정"으로 범위 명확화 ([app/services/page.tsx:55-63](app/services/page.tsx:55))
 - `/about`: "Our Mission → What Sets Us Apart" 섹션이 "Why IVY BLOOM" 차별점 4개와 내용이 중복되어 삭제 ([app/about/page.tsx](app/about/page.tsx))
 - `/not-found` (404) 페이지 신규 추가, 브랜드 톤 유지 ([app/not-found.tsx](app/not-found.tsx))
@@ -53,7 +54,7 @@
 - 텍스트 컬러 (dark): `#3D1A24`
 - 보더 컬러: `#E8DDD4`
 - 폰트 — 제목: Playfair Display (`next/font/google`, CSS var `--font-playfair`)
-- 폰트 — 본문: Pretendard (jsdelivr CDN, [app/layout.tsx:53](app/layout.tsx:53))
+- 폰트 — 본문: Pretendard 1.3.9 로컬 가변 분할 글꼴 (`app/fonts/pretendard/pretendard.css`, `app/globals.css`에서 가져옴). `unicode-range`로 필요한 문자 묶음만 다운로드하고 `font-display: swap` 적용. 라이선스는 같은 폴더의 `LICENSE.txt`.
 - 톤앤매너: premium
 - 피해야 할 이미지: 저렴한 느낌, 과한 홍보 문구, 복잡한 레이아웃
 
