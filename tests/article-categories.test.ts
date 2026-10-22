@@ -13,11 +13,14 @@ test('legacy SAT and essay articles stay discoverable under college admissions w
   assert.deepEqual(posts, before)
 })
 
-test('consultation has its own category and unrecognized legacy values remain accessible under Other', () => {
+test('consultation has its own category and Other is no longer a filter but old Other posts keep their label', () => {
   assert.equal(articleCategory('consultation'), 'consultation')
   assert.equal(articleCategoryLabel('consultation'), 'Parent & Student Consultation')
-  assert.equal(articleCategory('retired-category'), 'other')
-  assert.equal(articleCategory(undefined), 'other')
+  assert.deepEqual(ARTICLE_CATEGORIES.map((item) => item.value), ['story', 'college', 'boarding', 'consultation'])
+  assert.equal(articleCategory('other'), undefined)
+  assert.equal(articleCategoryLabel('other'), 'Other')
+  assert.equal(articleCategory('retired-category'), undefined)
+  assert.equal(articleCategory(undefined), undefined)
 })
 
 test('admin category choices match the public filter order', () => {
@@ -28,7 +31,7 @@ test('admin category choices match the public filter order', () => {
 test('admin audit preserves legacy categories while rejecting an unknown value', () => {
   const check: CheckDef = { key: 'category', label: '글 분류', group: 'required', field: 'category' }
   const post = { _id: 'legacy', title: 'Admissions guide', slug: { current: 'admissions-guide' } }
-  for (const category of ['sat', 'essay', 'consultation']) {
+  for (const category of ['sat', 'essay', 'other', 'consultation']) {
     assert.equal(checkField({ ...post, category }, check), 'pass')
   }
   assert.equal(checkField({ ...post, category: 'unknown' }, check), 'fail')

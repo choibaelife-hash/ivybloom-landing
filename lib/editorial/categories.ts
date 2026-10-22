@@ -3,19 +3,20 @@ export const ARTICLE_CATEGORIES = [
   { value: 'college', label: 'College Admissions' },
   { value: 'boarding', label: 'Boarding School Admissions' },
   { value: 'consultation', label: 'Parent & Student Consultation' },
-  { value: 'other', label: 'Other' },
 ]
 
-export function isLegacyArticleCategory(value: unknown): value is 'sat' | 'essay' {
-  return value === 'sat' || value === 'essay'
+export function isLegacyArticleCategory(value: unknown): value is 'sat' | 'essay' | 'other' {
+  return value === 'sat' || value === 'essay' || value === 'other'
 }
 
 // Keep old article links and saved categories readable without rewriting CMS data.
-export function articleCategory(value?: string): string {
-  if (isLegacyArticleCategory(value)) return 'college'
-  return ARTICLE_CATEGORIES.some((category) => category.value === value) ? value! : 'other'
+// 'other' has no filter of its own; such posts appear under All only.
+export function articleCategory(value?: string): string | undefined {
+  if (value === 'sat' || value === 'essay') return 'college'
+  return ARTICLE_CATEGORIES.some((category) => category.value === value) ? value : undefined
 }
 
 export function articleCategoryLabel(value?: string): string {
-  return ARTICLE_CATEGORIES.find((category) => category.value === articleCategory(value))!.label
+  if (value === 'other') return 'Other'
+  return ARTICLE_CATEGORIES.find((category) => category.value === articleCategory(value))?.label ?? ''
 }

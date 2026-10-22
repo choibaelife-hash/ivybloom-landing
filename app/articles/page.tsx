@@ -38,7 +38,7 @@ export default async function ArticlesPage({
   }
 
   const requestedCategory = (await searchParams).category ?? 'all'
-  const activeCategory = requestedCategory === 'all' ? 'all' : articleCategory(requestedCategory)
+  const activeCategory = articleCategory(requestedCategory) ?? 'all'
   const filtered =
     activeCategory === 'all'
       ? posts

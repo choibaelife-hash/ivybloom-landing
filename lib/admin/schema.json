@@ -76,10 +76,6 @@
             {
               "value": "consultation",
               "title": "Parent & Student Consultation"
-            },
-            {
-              "value": "other",
-              "title": "Other"
             }
           ],
           "layout": "radio"
