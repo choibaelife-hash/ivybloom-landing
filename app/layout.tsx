@@ -10,6 +10,7 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ivybloomconsulting.com'),
+  verification: { google: 'h-mWOfX7p8OZhw36feL2DZ28Xj88M1W_ObypYqy_Umk' },
   title: 'IVY BLOOM CONSULTING | US College Admissions for Korean Students',
   description:
     'IVY BLOOM CONSULTING helps Korean-American students cultivate their unique abilities and gain admission to top US universities. Expert college counseling, essay coaching, and application strategy.',
