@@ -39,7 +39,7 @@ export default function WhyUs() {
             <div className="relative h-[350px] md:h-full md:min-h-[420px] bg-white border border-brand-border rounded-sm overflow-hidden">
               <Image
                 src="/ivybloom logo.jpg"
-                alt="IVY BLOOM consulting — 15 years of US admissions experience"
+                alt="IVY BLOOM consulting — 10 years of US admissions experience"
                 fill
                 className="object-contain p-10"
               />

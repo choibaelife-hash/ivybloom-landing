@@ -2,17 +2,17 @@ import ScrollReveal from '@/components/ScrollReveal'
 
 const problems = [
   {
-    heading: 'Strong credentials are not enough without strategy',
-    body: "Parents ask us one question more than any other: \"Is my child's profile good enough to get in?\" The answer almost never depends on GPA alone — it depends on how the application is built around the student's specific strengths.",
+    "heading": "Strong credentials. Thoughtful strategy.",
+    "body": "Parents often ask us, “Is my child’s profile good enough to get in?” We look beyond GPA to understand each student’s strengths, experiences, and goals—and help them develop an application that reflects who they are."
   },
   {
-    heading: 'Essays are where most applications win or lose',
-    body: 'Admissions officers read thousands of applications. A formulaic essay — even a well-written one — disappears into the pile. What gets noticed is a genuine narrative that shows exactly who the student is.',
+    "heading": "Authentic stories. Individual voices.",
+    "body": "A polished essay can still feel impersonal. We help students reflect on their experiences, discover what they want to say, and express it with clarity—without losing the voice that makes the story their own."
   },
   {
-    heading: 'The admissions process is a full-time job',
-    body: 'School list, test scores, application forms, supplement essays, Parent Essays for boarding schools, deadlines — managing it all without guidance means something important will be missed.',
-  },
+    "heading": "A complex process. A clear plan.",
+    "body": "From school selection and testing timelines to application forms, supplemental essays, and boarding school parent statements, there is a lot to coordinate. We help families organize each step, track deadlines, and keep the process moving forward."
+  }
 ]
 
 export default function ProblemSection() {
@@ -23,8 +23,8 @@ export default function ProblemSection() {
           <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3">
             The Challenge
           </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-dark">
-            Why Most Applications Fall Short
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-dark max-w-3xl mx-auto leading-tight">
+            Why Strong Students Don’t Always Submit Strong Applications
           </h2>
         </ScrollReveal>
 

@@ -8,16 +8,16 @@ const cases = [
   },
   {
     label: 'Case 02',
-    headline: 'From Roblox Developer to UC Berkeley & Georgia Tech.',
+    headline: 'From Game Developer to UC Berkeley & Georgia Tech.',
     story:
-      'This student had spent years building his own game on Roblox — a serious technical project that most consultants would have overlooked. We placed that story at the center of his application narrative. He was admitted to both UC Berkeley and Georgia Tech.',
+      'This student had spent years building his own game — a serious technical project that most consultants would have overlooked. We placed that story at the center of his application narrative. He was admitted to both UC Berkeley and Georgia Tech.',
     tag: 'US College Admissions',
   },
   {
     label: 'Case 03',
-    headline: 'Four Schools. One Messy Record. A Better Outcome Than Expected.',
+    headline: 'Beyond the Transcript',
     story:
-      'By the time this student reached us, he had transferred schools four times — including a withdrawal and an expulsion. His academic record was far from clean. We built an honest, forward-looking narrative around the growth that followed. He enrolled at a school that exceeded what his record suggested was possible.',
+      'By the time this student reached us, he had transferred schools two times — including a withdrawal and an expulsion. His academic record was far from clean. We built an honest, forward-looking narrative around the growth that followed. He enrolled at a school that exceeded what his record suggested was possible.',
     tag: 'US College Admissions',
   },
 ]

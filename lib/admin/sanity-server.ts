@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import manifest from "./schema.json";
 import type { Document, Source, Asset } from "../local-studio";
 import { AuthError, guardOrigin, requireSession } from "./auth";
+import { isLegacyArticleCategory } from "../editorial/categories";
 
 export class AdminError extends Error {
   constructor(
@@ -176,6 +177,7 @@ export function validatePublish(doc: Document) {
       field.options &&
       "list" in field.options &&
       value &&
+      !(field.name === "category" && isLegacyArticleCategory(value)) &&
       !(field.options.list as { value: string }[]).some(
         (o) => o.value === value,
       )

@@ -40,7 +40,7 @@ export default function Nav() {
             rel="noopener noreferrer"
             className="bg-brand-burgundy text-brand-cream text-sm px-5 py-2 rounded hover:bg-brand-dark transition-colors"
           >
-            Free Consultation
+            Free Inquiry
           </a>
         </nav>
 
@@ -78,7 +78,7 @@ export default function Nav() {
             rel="noopener noreferrer"
             className="bg-brand-burgundy text-brand-cream text-sm px-5 py-2 rounded text-center"
           >
-            Free Consultation
+            Free Inquiry
           </a>
         </div>
       )}

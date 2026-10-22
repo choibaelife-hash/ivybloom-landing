@@ -1,3 +1,4 @@
+import { isLegacyArticleCategory } from "../editorial/categories";
 import type { AuditGroup, PTBlock } from "./body-analysis";
 import manifest from "./schema.json";
 export type PostAudit = {
@@ -48,7 +49,7 @@ export function checkField(post: PostAudit, check: CheckDef): CheckResult {
     case "category": {
       const definition = manifest.journalPost.fields.find(f => f.name === "category");
       const options = definition && "options" in definition && definition.options && "list" in definition.options ? definition.options.list : [];
-      return (options as { value: string }[]).some(option => option.value === post.category) ? "pass" : "fail";
+      return isLegacyArticleCategory(post.category) || (options as { value: string }[]).some(option => option.value === post.category) ? "pass" : "fail";
     }
     case "publishedAt": return trim(post.publishedAt) && Number.isFinite(Date.parse(post.publishedAt!)) ? "pass" : "fail";
     case "blocks": return post.body?.some(b => b._type === "checklistBlock" && (!Array.isArray(b.items) || !b.items.length) || b._type === "tableBlock" && (!Array.isArray(b.rows) || !b.rows.length)) ? "fail" : "pass";

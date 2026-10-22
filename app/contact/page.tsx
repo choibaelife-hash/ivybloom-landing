@@ -139,14 +139,13 @@ export default function ContactPage() {
                 </div>
 
                 <div>
-                  <label className={labelCls}>Service Interest</label>
-                  <select name="service" className={inputCls}>
+                  <label htmlFor="service-interest" className={labelCls}>Service Interest</label>
+                  <select id="service-interest" name="service" className={inputCls}>
                     <option value="">Select</option>
+                    <option value="roadmap">A Personalized Admissions Roadmap</option>
                     <option value="boarding">U.S. Boarding School Admission Consulting</option>
-                    <option value="junior">Junior Consulting</option>
                     <option value="college">College Admission Consulting</option>
                     <option value="essay">College Essay Consulting</option>
-                    <option value="graduate">Graduate School Consulting</option>
                   </select>
                 </div>
 

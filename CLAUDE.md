@@ -8,6 +8,63 @@
 
 ## 🔄 진행 상황 & 다음 세션 체크리스트
 
+### 2026-10-21 고객 수정 요청 37건 — 로컬 반영 작업
+- 원문: `/Users/km/Downloads/ivy-site_revision-수정요청 (2).md`. 사용자가 37건 전체와 제안한 6가지 정리 방향을 승인함.
+- 기준: 대학 지원·에세이는 Grades 11–12, 상담은 온라인, 사례의 학생 대명사는 he/his. 신규 사례와 로드맵에는 학생을 특정하지 않는 설명용 이미지를 사용. 무료 문의와 유료 상세 상담을 구분. 기존 글과 원격 데이터는 보존하며 분류 표시를 정리한다.
+- 순서: (1) 홈·공통 FAQ (2) About 대표/사례/4개 서비스 (3) Services 절차/4개 상세/이미지/바로가기 (4) 공개·관리자 카테고리 및 문의 선택지 (5) 타입·빌드·PC/모바일 검증.
+- 검증 기준: 37개 원문 대응, 4개 서비스 링크와 번호, 긴 문단/모바일 넘침, FAQ/검색 정보 일치, 기존 글 접근 유지, 신규 문의 선택값.
+- 범위: 로컬 코드와 검증만. 커밋·푸시·배포·운영 CMS 쓰기는 수행하지 않는다. 기존 Formspree 미연결은 별도 사항이다.
+- 상태: 37건 로컬 반영·검증 완료. 2026-10-22 사용자 요청으로 커밋·푸시(main) 진행. 운영 CMS 변경 없음.
+- 2026-10-22 추가: About 4번 사례의 설명용 교실 이미지·캡션 삭제(고객에게 사용할 이미지 자료 요청 예정). About 서비스 카드 02 College Application만 `Grade 11`로 표기, 나머지 Grades 11–12 표기는 고객 요청 범위가 아니라 유지.
+- 반영 내역: 1–4 홈 문제 설명, 5–8 홈 4개 서비스, 9–14 홈/About 공통 FAQ, 15–17 Sarah Kim/학력 문구 삭제, 18–21 사례 수정·4번째 사례/설명용 이미지, 22–25 About 4개 서비스, 26–30 온라인 진행 절차/10년 경력, 31–35 서비스 상세 4개/이미지 번호/바로가기, 36 글 분류, 37 문의 선택지.
+- 공통 정합성: 대학 지원·에세이 대상 Grades 11–12, 사례 he/his, 무료 문의는 Free Inquiry/무료 문의로 표시. 유료 개별 상담은 사전 비용·범위 안내를 명시. 검색용 대표 소개의 이름·경력과 FAQ JSON-LD도 일치시킴.
+- 새 사례 이미지는 기존 학교 이미지 소스를 재사용한 설명용 교실 사진이며 실제 학생의 학교가 아니라는 캡션을 표시. 로드맵은 계획·필기용 이미지를 사용. 모바일 긴 서비스 배지 줄바꿈과 4개 카드 배치를 확인함.
+- CMS 읽기 전용 확인: 로컬 환경이 연결된 `16s9d1s4/production`에는 공개 college 글 1건과 빈 draft 2건이 있었으며 sat/essay 분류 및 Roblox/Sohee 본문은 없었음. 데이터 이동·삭제 없음. 공개 필터에서는 이전 sat/essay 값을 College Admissions로 표시하고, 관리자에 남은 로컬 초안의 이전 값도 보존·선택 표시·발행 검증 허용. 새 글 선택지는 새 분류 5개만 제공.
+- 기존 About 사례 3개의 상세 slug에 해당하는 공개 글이 없어 링크를 준비 중 표시로 변경. 새로운 CMS 글이나 가짜 상세 페이지를 만들지 않음.
+- 검증: `npm run build`(타입 검사 포함), 관련 테스트 10개, `git diff --check` 통과. 1440px/390px에서 홈·About·Services·Articles·Contact 5개 페이지 가로 넘침/깨진 이미지 없음. FAQ 6개 펼친 답변과 JSON-LD 일치, 새 서비스 이동/4개 바로가기, 상담 카테고리 필터, 문의 폼의 `service=roadmap` 선택값 확인. 실제 문의 제출은 하지 않음.
+- 로컬 미리보기: `http://127.0.0.1:3017` (`next start`, 이 작업에서 실행). 임시 검증 결과는 `/tmp/ivy-browser-checks.json`, `/tmp/ivy-interaction-checks.json`, `/tmp/ivy-revision-build.log`에 있음.
+- 남은 별도 사항: 기존 Formspree ID placeholder와 Services의 기존 FAQ 빈 답변 7개는 이번 37건에 포함되지 않아 유지. 운영 사이트·별도 호스팅 Sanity Studio 반영은 아직 하지 않음. 다음 단계는 사용자 확인 후 명시적인 배포 요청이 있을 때만 Git/배포 진행.
+
+### 2026-10-13 경로 정리·Codex 대화 인수인계
+
+#### 실제 경로와 연결 — 이번에 확인
+- 실제 소스/Git 폴더: `/Users/km/Desktop/ivybloom`. 기준 브랜치 `main`, 문서 정리 전 HEAD `e11a9c0`, 작업 트리 깨끗함.
+- GitHub origin: `https://github.com/choibaelife-hash/ivybloom-landing.git`.
+- `/Users/km/Desktop/landing-system`은 위 실제 폴더를 가리키던 심볼릭 링크였으며, 사용자의 정리 요청에 따라 2026-10-13 링크만 삭제함. 별도 소스/하위 폴더를 가진 독립 폴더가 아니었음. 실제 폴더와 `.git`, 원격 연결 유지 확인.
+- `.vercel/project.json`의 로컬 연결: 고객 프로젝트 `ivybloom-consulting`, projectId `prj_b9RLEMijquOz7c23AGRcBeDuD6Kc`, orgId `team_O2YpzE33oOOG0NmpRu8D8xMC`. 이 로컬 파일만으로 현재 운영 상태를 증명하지 않음.
+- Codex 등록 프로젝트: 이름 `ivybloom`, projectId `ce44e1d5-ecf3-4c07-8e85-768ff46095fc`. 2026-10-13 사용자가 기존 프로젝트를 수정했고, 앱 `list_projects` 조회에서 기본 경로가 `/Users/km/Desktop/ivybloom`으로 바뀐 것을 확인함. 프로젝트 ID가 유지되어 새 프로젝트를 만든 것이 아님. 이후 사용자가 landing-system 연결을 제거했으며 저장된 `rootPaths`가 `['/Users/km/Desktop/ivybloom']`만 포함하는 것을 확인함. 프로젝트 기본/보조 폴더 정리 완료. 기존 프로젝트 ID와 기존 소속 대화가 유지됨. 실제 소스/Git 삭제나 '로컬 프로젝트 제거'는 수행하지 않음.
+- 현재 대화 '고객 문의 내용 확인' (`01a12ea7-e486-7460-b3f3-b53558b0b0cc`)는 `projectId: null`이고 저장된 cwd가 여전히 삭제된 `/Users/km/Desktop/landing-system`임을 최종 조회에서 확인함. 프로젝트 수정이 이 기존 대화의 cwd까지 바꾸지는 않았음. 이 대화는 참고 기록으로 보존하고, 후속 작업은 경로가 정상인 기존 Ivy 대화 또는 수정한 ivybloom 프로젝트에서 시작한 대화에서 이 파일을 먼저 읽어 이어갈 것. 현재 대화 경로를 직접 변경할 지원 도구는 제공되지 않음.
+- 경로 변경 전 기존 대화를 삭제/보관 처리하지 말 것. 새 프로젝트/대화 생성, 다른 대화에 메시지 보내기, 커밋·푸시·배포는 이번 문서 정리에서 수행하지 않음.
+
+#### 기존 대화 찾아보기
+기존 대화는 각각의 기록을 유지함. 새 대화가 모든 과거 내용을 자동으로 읽는다고 가정하지 말고, 이 요약부터 읽고 필요한 원문만 `read_thread`로 확인할 것. 아래는 실제 앱 조회에서 존재를 확인한 대화와 최근 결과임.
+
+| 대화 제목 | 대화 ID | 이어볼 내용 |
+|---|---|---|
+| 고객 문의 내용 확인 | `01a12ea7-e486-7460-b3f3-b53558b0b0cc` | 이번 경로 정리, DNS 반영 확인, MX 질문, 아직 미확인인 HTTPS·접속·리디렉션 |
+| Ivy Bloom 관리자 구축 문서 작성 | `01a1207a-5ae2-7710-910b-7eef47efbc9e` | 기존 공개 글은 '수정하고 발행' 흐름. 16:9 대표 이미지 생성/압축 변경은 당시 `abbafb4` 커밋·푸시·고객 Vercel 배포 완료 보고. 실제 유료 이미지 재생성은 미실행, 기존 정사각형 이미지 자동 변환 없음 |
+| 아이비블룸 Sanity SEO 구조 분석 | `01a1209b-83e9-7612-b394-9f5a9a39d96f` | 실제 폴더는 ivybloom. 예전 등록 경로 문제 때문에 landing-system 링크를 복구했던 이력. 로컬 Studio 변경과 별도 호스팅 Studio 반영은 구분 |
+| 모바일 여백과 프로세스 영역 줄이기 | `01a1293c-249b-79a2-ac1a-72ea35ae1e3e` | Services 모바일 여백 축소·상세 단계 숨김, WhyUs 모바일 로고 높이 350px. 당시 측정/타입 검사 결과는 원문 참조 |
+| 성능 점수표와 완료 점검표 찾기 | `01a12980-dd5c-7441-aa4a-d8b02e9dd97f` | 고객 Vercel 배포·도메인 등록, Namecheap 설정 안내의 원문. 최종 고객 안내는 A 레코드 두 줄과 www CNAME 한 줄 |
+| 도메인 적용 가이드라인 일반화 | `01a12087-7686-7e53-9ccb-5ae13693df75` | 기존 `Post_Development_Domain_SEO_AEO_GEO_Guide.md`는 재사용 절차 문서이며 실제 운영 검증 결과가 아님 |
+
+#### 고객 도메인 — 확인된 것과 남은 것
+- 도메인: `ivybloomconsulting.com`, `www.ivybloomconsulting.com`.
+- 고객에게 안내했던 Namecheap 값은 기존 대화 원문에서 확인: A `@ → 216.150.1.1`, A `@ → 216.150.16.1`, CNAME `www → f549cf145ffe6b3c.vercel-dns-016.com.`. A가 두 개라는 이유만으로 오류라고 판단하거나 지우지 말 것.
+- 고객 첨부 화면과 이번 Vercel DNS 조회에서 위 값의 반영 확인. DNS 조회는 `conflicts: []`, `misconfigured: false`이지만 동시에 `ipStatus: required-change`도 반환함. 일반 계정 조회의 추천 IP만으로 고객 프로젝트 DNS를 바꾸지 말고 해당 고객 프로젝트에서 요구하는 값과 상태를 확인할 것.
+- 연결된 Vercel 커넥터 계정에서는 고객 프로젝트 조회가 되지 않았음. 사용자는 Chrome에 고객 Vercel 계정이 로그인돼 있다고 명시했으므로, 브라우저가 동작하면 그 계정/팀/프로젝트를 실제 확인할 것.
+- 아직 미확인: 고객 프로젝트 Domains 화면 상태, 두 주소의 실제 홈페이지 표시, HTTPS 인증서 유효성, HTTP→HTTPS 및 기본/www 주소 이동, 실제 배포와 Git 연결 상태. 조회 도구 실패는 사이트 장애 증거가 아님.
+- 브라우저 도구는 처음에 심볼릭 링크인 writable root 오류, 링크 삭제 후에는 `No such file or directory`로 시작 실패. 터미널 읽기/문서 쓰기는 `/private/tmp`를 cwd로 하고 승인된 실행으로 가능했음. 도구 장애와 고객 계정 인증 문제를 구분할 것.
+- 고객의 TXT/MX 질문: 사진의 TXT는 이메일 SPF 설정이며 MX를 대신하지 않음. 홈페이지 A/CNAME 연결에는 MX가 필요 없지만 도메인 이메일 수신/전달에는 메일 서비스에 맞는 MX가 필요함. 사진의 'Email Forwarding' 표시만으로 실제 MX 부재나 전달 성공을 단정하지 말 것. 공개 MX 조회와 사용 중인 메일 서비스 확인이 남음. 기존 TXT/MX/Nameservers는 임의 변경하지 말 것.
+
+#### 다음 대화 시작 순서
+1. 실제 cwd가 `/Users/km/Desktop/ivybloom`인지, 기존 Codex 프로젝트 경로 변경이 반영됐는지 확인한다.
+2. 이 파일의 이번 인수인계를 읽고 Git 상태를 확인한다. 과거 완료 보고와 현재 운영 검증을 구분한다.
+3. 고객 Chrome의 Vercel `ivybloom-consulting` 프로젝트에서 Domains·Production·Git 연결을 읽기 전용 확인한다.
+4. 두 도메인의 DNS·HTTPS·홈페이지 표시·리디렉션과 공개 MX를 실제 확인한다. 확인 실패/미완료를 명시하고, 설정 변경은 별도 요청 범위에서만 한다.
+5. 아래 기존 미완성 목록은 과거 기록이다. 지금도 미완성인지 소스 확인 없이 단정하거나 이번 경로 정리 범위에서 코드를 수정하지 않는다.
+
+
 ### 확인/결정 필요 (미완성)
 - [ ] **Services FAQ 답변 미작성** — [app/services/page.tsx:8-16](app/services/page.tsx:8) `serviceFaqs`의 `answer` 필드가 전부 빈 문자열. 질문 7개는 있음, 답변 작성 필요.
 - [ ] **Formspree 미연결** — [app/contact/page.tsx](app/contact/page.tsx)의 `FORMSPREE_ID`가 `'YOUR_FORMSPREE_ID'` placeholder 상태. 실제 Formspree 폼 ID로 교체해야 문의 폼이 작동함.

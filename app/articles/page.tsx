@@ -1,3 +1,4 @@
+import { ARTICLE_CATEGORIES, articleCategory, articleCategoryLabel } from '@/lib/editorial/categories'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -12,24 +13,7 @@ export const metadata: Metadata = {
   description: 'Expert insights on US college admissions, boarding schools, and essay writing for Korean-American students.',
 }
 
-const CATEGORIES = [
-  { value: 'all',      label: 'All' },
-  { value: 'story',    label: "Ivybloom's Stories" },
-  { value: 'college',  label: 'College Admissions' },
-  { value: 'boarding', label: 'Boarding School' },
-  { value: 'sat',      label: 'SAT / ACT' },
-  { value: 'essay',    label: 'Essay' },
-  { value: 'other',    label: 'Other' },
-]
-
-const CATEGORY_LABELS: Record<string, string> = {
-  story:    "Ivybloom's Stories",
-  college:  'College Admissions',
-  boarding: 'Boarding School',
-  essay:    'Essay',
-  sat:      'SAT / ACT',
-  other:    'Other',
-}
+const CATEGORIES = [{ value: 'all', label: 'All' }, ...ARTICLE_CATEGORIES]
 
 type Post = {
   _id: string
@@ -53,11 +37,12 @@ export default async function ArticlesPage({
     // Sanity not configured yet
   }
 
-  const activeCategory = (await searchParams).category ?? 'all'
+  const requestedCategory = (await searchParams).category ?? 'all'
+  const activeCategory = requestedCategory === 'all' ? 'all' : articleCategory(requestedCategory)
   const filtered =
     activeCategory === 'all'
       ? posts
-      : posts.filter((p) => p.category === activeCategory)
+      : posts.filter((p) => articleCategory(p.category) === activeCategory)
   const storyPosts = posts.filter((p) => p.category === 'story')
 
   return (
@@ -75,7 +60,7 @@ export default async function ArticlesPage({
         {storyPosts.length > 0 && (
           <div className="bg-brand-cream border-b border-brand-border py-14">
             <div className="max-w-6xl mx-auto px-4 sm:px-6">
-              <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3 text-center">Ivybloom&apos;s Stories</p>
+              <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3 text-center">Ivy Bloom’s Stories</p>
               <h2 className="font-display text-2xl sm:text-3xl font-bold text-brand-dark text-center mb-10">
                 Every Application Has a Story
               </h2>
@@ -164,7 +149,7 @@ export default async function ArticlesPage({
                   </div>
                   <div className="p-5">
                     <p className="text-xs text-brand-rose uppercase tracking-wider mb-2">
-                      {CATEGORY_LABELS[post.category] ?? post.category}
+                      {articleCategoryLabel(post.category)}
                     </p>
                     <h2 className="font-display font-bold text-base text-brand-dark leading-snug mb-2 group-hover:text-brand-burgundy transition-colors line-clamp-2">
                       {post.title}

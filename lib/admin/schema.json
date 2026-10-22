@@ -62,28 +62,24 @@
         "options": {
           "list": [
             {
-              "title": "Ivy Bloom Stories (이야기·사례)",
-              "value": "story"
+              "value": "story",
+              "title": "Ivy Bloom’s Stories"
             },
             {
-              "title": "College Admissions (대학 입학)",
-              "value": "college"
+              "value": "college",
+              "title": "College Admissions"
             },
             {
-              "title": "Boarding School (보딩스쿨)",
-              "value": "boarding"
+              "value": "boarding",
+              "title": "Boarding School Admissions"
             },
             {
-              "title": "SAT / ACT",
-              "value": "sat"
+              "value": "consultation",
+              "title": "Parent & Student Consultation"
             },
             {
-              "title": "Essay (에세이)",
-              "value": "essay"
-            },
-            {
-              "title": "Other (기타)",
-              "value": "other"
+              "value": "other",
+              "title": "Other"
             }
           ],
           "layout": "radio"

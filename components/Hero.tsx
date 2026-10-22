@@ -67,7 +67,7 @@ export default function Hero() {
             rel="noopener noreferrer"
             className="inline-block bg-brand-cream text-brand-burgundy font-semibold px-10 py-4 rounded-sm hover:bg-brand-rose hover:text-brand-cream transition-colors text-sm tracking-wider"
           >
-            Free Consultation
+            Free Inquiry
           </a>
           <a
             href="/contact"

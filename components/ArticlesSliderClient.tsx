@@ -2,19 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { articleCategoryLabel } from '@/lib/editorial/categories'
 import Image from 'next/image'
 
 const CARD_W = 300
 const GAP    = 24
 const SLOT   = CARD_W + GAP
 
-const CATEGORY_LABELS: Record<string, string> = {
-  college:  'College Admissions',
-  boarding: 'Boarding School',
-  essay:    'Essay',
-  sat:      'SAT / ACT',
-  other:    'Other',
-}
 
 export type SliderPost = {
   _id: string
@@ -161,7 +155,7 @@ export default function ArticlesSliderClient({ posts }: { posts: SliderPost[] })
                       )}
                       <div className="absolute top-3 left-3 bg-brand-burgundy rounded-full px-3 py-1">
                         <p className="text-brand-cream text-[10px] font-bold tracking-wider">
-                          {CATEGORY_LABELS[post.category] ?? 'Article'}
+                          {articleCategoryLabel(post.category)}
                         </p>
                       </div>
                     </div>

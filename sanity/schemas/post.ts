@@ -1,3 +1,4 @@
+import { ARTICLE_CATEGORIES } from '../../lib/editorial/categories'
 import { defineField, defineType } from 'sanity'
 import { BodyAnalyzerInput } from '../components/BodyAnalyzer'
 import { SoftRequiredInput } from '../components/SoftRequiredInput'
@@ -112,11 +113,7 @@ export const postType = defineType({
       options: { source: 'title', maxLength: 96 },
     }),
     defineField({ name: 'publishedAt', title: 'Published At', type: 'datetime', group: 'content' }),
-    defineField({ name: 'category', title: 'Category', type: 'string', group: 'content', options: { list: [
-      { title: "Ivybloom's Stories", value: 'story' }, { title: 'College Admissions', value: 'college' },
-      { title: 'Boarding School', value: 'boarding' }, { title: 'Essay', value: 'essay' },
-      { title: 'SAT / ACT', value: 'sat' }, { title: 'Other', value: 'other' },
-    ] } }),
+    defineField({ name: 'category', title: 'Category', type: 'string', group: 'content', options: { list: ARTICLE_CATEGORIES.map(({ value, label }) => ({ value, title: label })) } }),
     defineField({ name: 'author', title: 'Author', type: 'string', group: 'content', initialValue: 'Ivybloom' }),
     defineField({ name: 'excerpt', title: 'Excerpt', type: 'text', rows: 3, group: 'content',
       description: '독자에게 글의 답을 간결하게 소개합니다. 검색 설명을 따로 쓰지 않으면 이 값을 사용합니다.', components: { input: MetaSuggestionInput } }),

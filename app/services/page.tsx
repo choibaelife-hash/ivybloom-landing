@@ -8,7 +8,7 @@ import type { FaqItem } from '@/lib/structured-data'
 const serviceFaqs: FaqItem[] = [
   { question: 'Is there consulting available for younger students?', answer: '' },
   { question: 'How long does the consulting process take?', answer: '' },
-  { question: 'How many schools does Essay Consulting cover?', answer: '' },
+  { question: 'How many schools does College Essay Consulting cover?', answer: '' },
   { question: 'How many sessions does consulting involve? Is there a limit?', answer: '' },
   { question: 'When do US boarding school applications open — and how early should we start preparing?', answer: '' },
   { question: 'Can my child apply to boarding school without an SSAT score?', answer: '' },
@@ -25,60 +25,183 @@ export const metadata: Metadata = {
 
 const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
 
-const services = [
+type Service = {
+  id: string
+  badge: string
+  number: string
+  title: string
+  target: string
+  image: string
+  imageAlt: string
+  headline: string
+  intro?: string
+  description: string
+  audiences?: { title: string; description: string; items: string[] }[]
+  items: { title: string; description: string }[]
+  scope?: string
+}
+
+const services: Service[] = [
   {
-    id: 'college-application',
-    badge: 'Comprehensive Package',
-    number: '01',
-    title: 'College Application Consulting',
-    target: 'Grade 11 High School Students',
-    image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80',
-    imageAlt: 'Graduation ceremony — IVY BLOOM college admissions consulting results',
-    headline: 'From School List to Acceptance Letter — We Guide Every Step',
-    description: `Getting into a top US university takes more than a strong GPA. At IVY BLOOM, our College Application Consulting service walks Grade 11 students through the entire admissions journey — from building a strategic school list to crafting essays that genuinely reflect who you are.\n\nOur consultants understand both the Korean-American student experience and what US admissions officers are looking for. That means we don't just edit documents — we help you build a compelling, authentic narrative that sets you apart in one of the most competitive applicant pools in the world.`,
-    items: [
-      'Personalized college list based on academic profile, goals, and school fit',
-      'Common Application review and strategic positioning',
-      'Personal Statement development — brainstorming through final draft',
-      'Supplement Essay writing and feedback for every target school',
-      'Application timeline management and deadline tracking',
+    "id": "admissions-roadmap",
+    "badge": "Standalone Package",
+    "number": "01",
+    "title": "Personalized Admissions Roadmap",
+    "target": "Grades 7–11 · Middle & High School",
+    "headline": "A Clearer Path to Your Next Step",
+    "intro": "Academics. Testing. Activities. School Exploration. A plan built around your student.",
+    "description": "There is no shortage of admissions advice. The challenge is knowing what matters most for your student—and what to do first.\n\nShould they focus on grades or prepare for standardized tests? Deepen an existing activity or explore a new interest? Start researching schools or first understand the environments in which they thrive?\n\nAt IVY Bloom Consulting, we help students and families turn these questions into a thoughtful, actionable plan.\n\nOur Personalized Admissions Roadmap begins with a close look at where your student is today: their academic preparation, interests, experiences, strengths, and goals. From there, we identify priorities and map out practical next steps—so each decision serves a purpose.\n\nMore information is not always the answer. A clearer direction is.",
+    "audiences": [
+      {
+        "title": "U.S. College Planning",
+        "description": "For students in Grades 8–11 and their families who want to:",
+        "items": [
+          "Connect academic choices, testing, and activities within one coherent plan.",
+          "Prioritize preparation based on the time remaining before applications.",
+          "Make thoughtful decisions about AP or IB courses, standardized testing, and extracurricular commitments.",
+          "Understand how existing experiences reveal interests and strengths that can later inform an application."
+        ]
+      },
+      {
+        "title": "Boarding School Planning",
+        "description": "For students and families who want to:",
+        "items": [
+          "Establish a realistic preparation timeline based on the intended entry grade and enrollment date.",
+          "Explore schools beyond name recognition.",
+          "Compare academic programs, school culture, and residential environments with the student’s needs in mind.",
+          "Identify what to focus on now and what to prepare for next."
+        ]
+      }
     ],
+    "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1600&q=80",
+    "imageAlt": "Notebook and pen for planning a personalized admissions roadmap",
+    "items": [
+      {
+        "title": "A current preparation overview",
+        "description": "An evidence-based summary of the student’s strengths, preparation, and areas for development."
+      },
+      {
+        "title": "An academic, testing, and activity timeline",
+        "description": "Priorities organized by semester and school break, based on the student’s stage and goals."
+      },
+      {
+        "title": "Clear activity priorities",
+        "description": "Guidance on which commitments to maintain, which to deepen, and which to defer."
+      },
+      {
+        "title": "School exploration and comparison criteria",
+        "description": "A framework informed by the student’s preferences, learning style, and educational needs."
+      },
+      {
+        "title": "An initial set of schools to explore",
+        "description": "Potential options based on current preparation and preferences, with explanations for why each merits consideration."
+      },
+      {
+        "title": "Planning checkpoints",
+        "description": "Suggested times and criteria for revisiting the plan as the student’s interests, preparation, and goals evolve."
+      }
+    ]
   },
   {
-    id: 'essay-consulting',
-    badge: 'Essay Only',
-    number: '02',
-    title: 'Essay Consulting',
-    target: 'Grade 11 Students with a School List Ready',
-    image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1600&q=80',
-    imageAlt: 'Student writing college essays — expert essay coaching for US university applications',
-    headline: 'Your School List Is Set. Now We Build the Essays Your Target Schools Require.',
-    description: `Already know where you want to apply? Our Essay Consulting service focuses exclusively on what often makes or breaks an application: your essays.\n\nUnlike generic editing services that use templates, every essay we work on is crafted from scratch to reflect your authentic voice — while meeting the specific expectations of each school's admissions team. We build a dedicated essay plan around the exact schools on your list — not an open-ended menu of writing services.`,
-    items: [
-      'Essay strategy sessions to identify your strongest narrative angles',
-      'Supplement Essay writing and revision for each target school',
-      'A structured essay timeline mapped to your target schools\' deadlines',
-      'Multiple revision rounds until every essay is ready to submit',
-    ],
+    "id": "college-application",
+    "badge": "Comprehensive Package",
+    "number": "02",
+    "target": "Grades 11–12 · High School",
+    "image": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1600&q=80",
+    "imageAlt": "Graduation ceremony illustrating the college admissions journey",
+    "title": "College Application Consulting",
+    "headline": "From School Selection to Final Decisions—Guidance at Every Step",
+    "description": "A strong application is more than a collection of grades, scores, and activities. At IVY Bloom Consulting, we guide students through the college application process—from building a thoughtful school list to developing essays that reflect their experiences, perspectives, and aspirations.\n\nOur consultants understand how U.S. admissions officers evaluate applicants. We help students connect their academic preparation, interests, and experiences to present a clear, authentic picture of who they are—and what they could contribute to a college community.\n\nFrom application strategy and essay development to final review and post-submission follow-up, we provide personalized guidance at every stage.",
+    "items": [
+      {
+        "title": "Personalized College List",
+        "description": "A thoughtfully curated list aligned with your academic profile, interests, goals, and preferred college environment."
+      },
+      {
+        "title": "College Application Strategy & Review",
+        "description": "Strategic guidance and detailed review to present your strengths, experiences, and achievements clearly and cohesively."
+      },
+      {
+        "title": "Personal Statement Development",
+        "description": "Individualized support from brainstorming and outlining through revision and final polish—keeping your voice at the center."
+      },
+      {
+        "title": "Supplemental Essay Guidance",
+        "description": "School-specific guidance and feedback to help you craft thoughtful, authentic responses for each college on your list."
+      },
+      {
+        "title": "Application Timeline & Deadline Management",
+        "description": "A personalized application schedule and ongoing deadline tracking to keep each stage of the process organized and on track."
+      }
+    ]
   },
   {
-    id: 'boarding-school',
-    badge: 'Boarding School',
-    number: '03',
-    title: 'Boarding School Consulting',
-    target: 'Grades 7–8 Middle School · Grade 9 High School',
-    image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600&q=80',
-    imageAlt: 'US boarding school campus — admissions consulting for Korean students applying to prep schools',
-    headline: 'The Right Boarding School Changes Everything. We Help You Find It.',
-    description: `Applying to a US boarding school is one of the most significant decisions a family can make — and the process is more competitive than ever. Our Boarding School Consulting service supports students in Grades 7–9 through every stage of the application, helping them stand out at schools like Exeter, Andover, Choate, and beyond.\n\nBecause at the boarding school level, the family's voice matters too. We guide both students and parents through essays, applications, and strategy — making sure your entire application tells a cohesive, compelling story.`,
-    items: [
-      'Boarding school list building based on student profile and family goals',
-      'Application review and strategic positioning for each school',
-      'Student essay writing and multi-round feedback',
-      'Parent Essay writing and review',
-      'Interview preparation guidance',
+    "id": "essay-consulting",
+    "badge": "Essay-Only",
+    "number": "03",
+    "target": "Grades 11–12 · For Students with a Finalized College List",
+    "image": "https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1600&q=80",
+    "imageAlt": "Notebook and pen for developing college application essays",
+    "title": "College Essay Consulting",
+    "headline": "Your Schools. Your Story. Your Voice.",
+    "description": "You know where you want to apply. Now, bring your experiences, ideas, and aspirations into focus through essays that are distinctly yours.\n\nOur College Essay Consulting service provides personalized guidance for students who have finalized their college list and want dedicated support with their application essays. From the personal statement to school-specific supplemental essays, we help you develop meaningful ideas, organize your thoughts, and refine your writing—while keeping your voice at the center.\n\nEvery essay begins with your experiences, not a template. Together, we explore what matters to you, identify the stories worth telling, and develop responses that thoughtfully address each school’s prompts.\n\nWith a defined scope based on your college list and a structured writing plan, you will know what to work on, when to work on it, and how each essay contributes to your overall application.",
+    "items": [
+      {
+        "title": "Personalized Essay Strategy",
+        "description": "One-on-one brainstorming and planning to identify meaningful experiences, compelling themes, and distinct perspectives."
+      },
+      {
+        "title": "Personal Statement Development",
+        "description": "Guidance from initial ideas and outlining through drafting, revision, and final polish."
+      },
+      {
+        "title": "School-Specific Supplemental Essay Guidance",
+        "description": "Individualized support to develop focused, authentic responses tailored to each college’s essay prompts."
+      },
+      {
+        "title": "A Structured Essay Timeline",
+        "description": "A writing and revision schedule aligned with the essay requirements and application deadlines of the colleges on your list."
+      },
+      {
+        "title": "Thoughtful, Iterative Feedback",
+        "description": "Multiple rounds of feedback to strengthen clarity, structure, and expression while preserving your ideas and individual voice."
+      }
     ],
+    "scope": "This standalone service covers the essays agreed upon for your finalized college list. School selection, broader application management, and submission support are not included."
   },
+  {
+    "id": "boarding-school",
+    "badge": "Comprehensive Package",
+    "number": "04",
+    "target": "Grades 7–9 · Middle & High School Students",
+    "image": "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600&q=80",
+    "imageAlt": "Empty classroom illustrating school life",
+    "title": "Boarding School Consulting",
+    "headline": "Beyond Reputation. A School Where Your Student Can Thrive.",
+    "description": "The right boarding school is not simply the most recognizable name. It is a place where your student can feel supported, challenged, and ready to grow—both in and beyond the classroom.\n\nAt IVY Bloom Consulting, we help families explore a wide range of U.S. boarding schools, from highly selective institutions to schools offering different academic pathways, close-knit communities, and individualized support. We consider each student’s academic preparation, interests, personality, and readiness for residential life, alongside the family’s goals and preferences.\n\nFrom building a thoughtful school list to preparing applications, essays, and interviews, we provide personalized guidance throughout the admissions process. Our goal is to help your family make informed choices and present an authentic, cohesive picture of the student—not simply pursue a name.\n\nWe also recognize that parents bring an important perspective. We guide students and parents through their respective application components, helping each express their experiences and insights in their own voice.",
+    "items": [
+      {
+        "title": "Personalized Boarding School List",
+        "description": "A thoughtfully researched list informed by the student’s academic profile, interests, residential needs, and family priorities."
+      },
+      {
+        "title": "Application Strategy & Review",
+        "description": "School-specific guidance and detailed application review to present the student’s strengths, experiences, and goals clearly and cohesively."
+      },
+      {
+        "title": "Student Essay Guidance",
+        "description": "Personalized support from brainstorming through revision, with multiple rounds of feedback that preserve the student’s own voice."
+      },
+      {
+        "title": "Parent Statement Guidance",
+        "description": "Support with planning, drafting, and refining thoughtful responses that reflect the family’s perspective and understanding of their child."
+      },
+      {
+        "title": "Interview Preparation",
+        "description": "Individualized practice and feedback to help students discuss their interests, experiences, and school preferences with clarity and confidence."
+      }
+    ]
+  }
 ]
 
 export default function ServicesPage() {
@@ -128,22 +251,22 @@ export default function ServicesPage() {
                 {
                   num: '01',
                   title: 'Consultation',
-                  desc: 'A 30-minute call to understand your goals, timeline, and academic profile.',
+                  desc: "Following an initial consultation, online, we conduct a comprehensive review of the student’s academic background, standardized test scores, extracurricular involvement, and achievements.",
                 },
                 {
                   num: '02',
-                  title: 'Strategy & School List',
-                  desc: 'Personalized school list and application roadmap — no templates, no guesswork.',
+                  title: 'Admissions Strategy & School List',
+                  desc: "A personalized school list and application roadmap, shaped by your student’s strengths, goals, and preferences.",
                 },
                 {
                   num: '03',
-                  title: 'Application & Essays',
-                  desc: 'Every document guided: Common App, supplements, and boarding school essays.',
+                  title: 'Applications & Essays',
+                  desc: "Thoughtful guidance on every application and essay—from college applications and supplemental essays to boarding school essays.",
                 },
                 {
                   num: '04',
-                  title: 'Submission & Results',
-                  desc: 'Final review, deadline tracking, and decision support until you have your answer.',
+                  title: 'Submission & Follow-Up',
+                  desc: "From final review to admissions decisions—we help track deadlines, verify required materials, and follow up on each school’s additional requests.",
                 },
               ].map((step, i) => (
                 <AnimateOnScroll key={step.num} delay={i * 180}>
@@ -176,7 +299,7 @@ export default function ServicesPage() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
             <div className="grid grid-cols-3 divide-x divide-brand-cream/20 text-center">
               {[
-                { number: '7', unit: 'Years', label: 'of US Admissions Expertise' },
+                { number: '10', unit: 'Years', label: 'of US Admissions Expertise' },
                 { number: '100+', unit: 'Students', label: 'Guided to Top Schools' },
                 { number: 'Top-20', unit: 'Results', label: 'Ivy League & Beyond' },
               ].map((stat) => (
@@ -197,15 +320,15 @@ export default function ServicesPage() {
           <section
             key={s.id}
             id={s.id}
-            className={i % 2 === 0 ? 'bg-white' : 'bg-brand-cream'}
+            className={`scroll-mt-20 ${i % 2 === 0 ? 'bg-white' : 'bg-brand-cream'}`}
           >
             {/* 콘텐츠 */}
             <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16">
               <div className="grid md:grid-cols-2 gap-14 items-start">
                 {/* 왼쪽: 설명 */}
                 <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="bg-brand-burgundy text-brand-cream text-xs px-3 py-1 rounded-full">
+                  <div className="flex flex-wrap items-center gap-3 mb-4">
+                    <span className="bg-brand-burgundy text-brand-cream text-xs px-3 py-1 rounded-full whitespace-nowrap">
                       {s.badge}
                     </span>
                     <span className="text-xs text-brand-rose uppercase tracking-wider">
@@ -218,11 +341,26 @@ export default function ServicesPage() {
                   <p className="text-brand-burgundy font-medium text-sm mb-5 leading-snug">
                     {s.headline}
                   </p>
+                  {s.intro && <p className="font-medium text-sm text-brand-dark mb-5 leading-relaxed">{s.intro}</p>}
                   {s.description.split('\n\n').map((para, j) => (
                     <p key={j} className="text-sm text-brand-dark/70 leading-relaxed mb-4">
                       {para}
                     </p>
                   ))}
+                  {s.audiences && (
+                    <div className="mt-8 border-t border-brand-border pt-6">
+                      <h3 className="font-display text-xl font-bold text-brand-dark mb-5">Who This Service Is For</h3>
+                      {s.audiences.map((audience) => (
+                        <div key={audience.title} className="mb-6">
+                          <h4 className="font-semibold text-brand-burgundy mb-2">{audience.title}</h4>
+                          <p className="text-sm text-brand-dark/70 mb-3">{audience.description}</p>
+                          <ul className="list-disc pl-5 space-y-2 text-sm text-brand-dark/70 leading-relaxed">
+                            {audience.items.map((item) => <li key={item}>{item}</li>)}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* 오른쪽: 포함 항목 */}
@@ -232,15 +370,24 @@ export default function ServicesPage() {
                   </p>
                   <ul className="space-y-4">
                     {s.items.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-sm text-brand-dark">
+                      <li key={item.title} className="flex items-start gap-3 text-sm text-brand-dark">
                         <span className="text-brand-burgundy font-bold mt-0.5 flex-shrink-0">✓</span>
-                        {item}
+                        <div>
+                          <h3 className="font-semibold mb-1">{item.title}</h3>
+                          <p className="text-brand-dark/70 leading-relaxed">{item.description}</p>
+                        </div>
                       </li>
                     ))}
                   </ul>
+                  {s.scope && (
+                    <div className="mt-6 bg-brand-cream p-5 rounded-sm">
+                      <h3 className="font-semibold text-sm text-brand-dark mb-2">A Focused Service with a Clear Scope</h3>
+                      <p className="text-sm text-brand-dark/70 leading-relaxed">{s.scope}</p>
+                    </div>
+                  )}
                   <div className="mt-8 pt-6 border-t border-brand-border">
                     <p className="text-xs text-brand-dark/40 mb-3">
-                      Pricing is provided after an initial consultation.
+                      Initial inquiries are free. Personalized consultations are paid, with the fee and scope explained before booking.
                     </p>
                     <a
                       href={KAKAO_URL}
@@ -248,7 +395,7 @@ export default function ServicesPage() {
                       rel="noopener noreferrer"
                       className="inline-block bg-brand-burgundy text-brand-cream text-xs px-5 py-2.5 rounded-sm hover:bg-brand-dark transition-colors"
                     >
-                      Free Consulting
+                      Free Inquiry
                     </a>
                   </div>
                 </div>

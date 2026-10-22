@@ -1,3 +1,4 @@
+import { ARTICLE_CATEGORIES } from '../../lib/editorial/categories'
 import { createElement } from "react";
 import { defineField, defineType, defineArrayMember } from "sanity";
 import { Icon } from "@sanity/icons";
@@ -53,14 +54,7 @@ export const journalPostType = defineType({
       group: "content",
       validation: (r) => r.required().error("카테고리를 선택하세요"),
       options: {
-        list: [
-          { title: "Ivy Bloom Stories (이야기·사례)", value: "story" },
-          { title: "College Admissions (대학 입학)", value: "college" },
-          { title: "Boarding School (보딩스쿨)", value: "boarding" },
-          { title: "SAT / ACT", value: "sat" },
-          { title: "Essay (에세이)", value: "essay" },
-          { title: "Other (기타)", value: "other" },
-        ],
+        list: ARTICLE_CATEGORIES.map(({ value, label }) => ({ value, title: label })),
         layout: "radio",
       },
     }),

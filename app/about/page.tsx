@@ -43,7 +43,7 @@ const differentiators = [
   },
   {
     title: 'Founder-Led From Start to Finish',
-    desc: 'Sohee Kim personally leads school selection and oversees every application. Essay writing is handled by our specialist writing team. One decision-maker. Consistent strategy.',
+    desc: 'Sarah Kim personally leads school selection and oversees every application. Essay writing is handled by our specialist writing team. One decision-maker. Consistent strategy.',
   },
   {
     title: 'Built on Trust First',
@@ -53,53 +53,64 @@ const differentiators = [
 
 const cases = [
   {
-    id: '01',
-    label: 'Against All Odds',
-    summary:
-      'A student who experienced a neurological condition affecting school performance through middle school. Starting from Grade 10, we rebuilt her academic narrative from the ground up.',
-    outcome: 'Accepted at all 10 universities applied to.',
-    slug: 'against-all-odds',
+    "id": "01",
+    "label": "A Journey of Resilience",
+    "summary": "A neurological condition affected his academic performance throughout middle school. Beginning in Grade 10, we worked with him to rebuild his academic foundation and develop an application that reflected his strengths, growth, and resilience.",
+    "outcome": "Accepted to all 10 universities he applied to.",
+    "slug": ""
   },
   {
-    id: '02',
-    label: 'The Builder',
-    summary:
-      'A high school student who had developed a popular Roblox game with a significant player base. We positioned his self-taught engineering skills as the core of his application story.',
-    outcome: 'Accepted to UC Berkeley and Georgia Tech.',
-    slug: 'the-builder',
+    "id": "02",
+    "label": "The Builder",
+    "summary": "A high school student who had developed a popular game with a significant player base. We positioned his self-taught engineering skills as the core of his application story.",
+    "outcome": "Accepted to UC Berkeley and Georgia Tech.",
+    "slug": ""
   },
   {
-    id: '03',
-    label: 'A Rocky Record',
-    summary:
-      'A student who had transferred schools four times — including one withdrawal and one expulsion — with a compromised academic record. We focused on what the transcript couldn\'t tell.',
-    outcome: 'Admitted to a school well above initial expectations.',
-    slug: 'a-rocky-record',
+    "id": "03",
+    "label": "Beyond the Transcript",
+    "summary": "The student’s educational journey included two school transfers, a withdrawal, and an expulsion. We focused on the story his transcript alone could not tell.",
+    "outcome": "Admitted to a school that exceeded initial expectations.",
+    "slug": ""
   },
+  {
+    "id": "04",
+    "label": "From the Waitlist to an Acceptance",
+    "summary": "After working with a large consulting firm without achieving the desired results, the family came to Ivy Bloom facing disappointment and uncertainty. The student had been placed on the waitlist at their top-choice boarding school. We completely re-strategized and refined the application portfolio from the ground up, turning the waitlist status into a final admission.",
+    "outcome": "Admitted to their top-choice boarding school off the waitlist.",
+    "slug": ""
+  }
 ]
 
 const services = [
   {
-    number: '01',
-    title: 'College Application Consulting',
-    target: 'Grade 11',
-    desc: 'Full-cycle admissions strategy — school list to final submission.',
-    href: '/services#college-application',
+    "number": "01",
+    "title": "Personalized Admissions Roadmap",
+    "target": "Grades 7–11",
+    "desc": "Student Assessment · Admissions Strategy · School Exploration · Action Plan",
+    "href": "/services#admissions-roadmap"
   },
   {
-    number: '02',
-    title: 'Essay Consulting',
-    target: 'Grade 11 · Essay-Only',
-    desc: 'Essays built around your voice, not a template.',
-    href: '/services#essay-consulting',
+    "number": "02",
+    "title": "College Application Consulting",
+    "target": "Grade 11",
+    "desc": "From strategy and school selection to final submission.",
+    "href": "/services#college-application"
   },
   {
-    number: '03',
-    title: 'Boarding School Consulting',
-    target: 'Grades 7–9',
-    desc: 'Full support for Exeter, Andover, Choate and more.',
-    href: '/services#boarding-school',
+    "number": "03",
+    "title": "College Essay Consulting",
+    "target": "Grades 11–12 · Essay-Only",
+    "desc": "Personalized guidance. Your story, in your voice.",
+    "href": "/services#essay-consulting"
   },
+  {
+    "number": "04",
+    "title": "Boarding School Consulting",
+    "target": "Grades 7–9",
+    "desc": "From finding the right school environment to application preparation and final submission.",
+    "href": "/services#boarding-school"
+  }
 ]
 
 export default function AboutPage() {
@@ -169,10 +180,10 @@ export default function AboutPage() {
             <p className="font-display text-xl sm:text-2xl font-bold text-brand-burgundy leading-snug mb-7 max-w-xl mx-auto">
               Founded on the belief that every application should be built around who a student actually is, not a template.
             </p>
-            <p className="font-display font-bold text-sm text-brand-dark">Sohee Kim</p>
+            <p className="font-display font-bold text-sm text-brand-dark">Sarah Kim</p>
             <p className="text-xs text-brand-rose uppercase tracking-widest mt-1 mb-6">Founder, IVY BLOOM CONSULTING</p>
             <p className="text-sm text-brand-dark/60 leading-relaxed">
-              Founded IVY BLOOM CONSULTING in 2019, originally as EduMatch Consulting, rebranded in 2024. A graduate of the School of Management at the University at Buffalo, she built her admissions expertise at a leading Seoul consulting firm before launching her own practice.
+              Founded IVY BLOOM CONSULTING in 2019, originally as EduMatch Consulting, rebranded in 2024. She built her admissions expertise at a leading Seoul consulting firm before launching her own practice.
             </p>
           </div>
         </section>
@@ -180,14 +191,14 @@ export default function AboutPage() {
         {/* ── 케이스 스터디 ── */}
         <section className="py-20 bg-brand-cream">
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
-            <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3 text-center">Ivybloom&apos;s Stories</p>
+            <p className="text-xs text-brand-rose tracking-[3px] uppercase mb-3 text-center">Ivy Bloom’s Stories</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-dark text-center mb-4">
               Every Application Has a Story
             </h2>
             <p className="text-center text-sm text-brand-dark/50 mb-14">
               All cases anonymized at the student's request.
             </p>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 gap-8 items-start">
               {cases.map((c) => (
                 <div key={c.id} className="border-t-2 border-brand-burgundy pt-6 flex flex-col">
                   <span className="font-display text-4xl font-bold text-brand-burgundy/15 mb-3">{c.id}</span>
@@ -220,7 +231,7 @@ export default function AboutPage() {
             <h2 className="font-display text-3xl md:text-4xl font-bold text-brand-dark text-center mb-14">
               Our Services
             </h2>
-            <div className="grid md:grid-cols-3 gap-6 mb-10">
+            <div className="grid md:grid-cols-2 gap-6 mb-10">
               {services.map((s) => (
                 <Link
                   key={s.title}

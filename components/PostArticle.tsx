@@ -140,7 +140,7 @@ export function PostArticle({ post }: { post: PublicPost }) {
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-brand-burgundy text-brand-cream text-sm px-5 py-3 rounded-full shadow-lg hover:bg-brand-dark transition-colors"
       >
-        📱 무료 상담
+              📱 무료 문의
       </a>
     </>
   )

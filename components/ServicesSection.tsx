@@ -4,32 +4,58 @@ import ScrollReveal from '@/components/ScrollReveal'
 
 const services = [
   {
-    number: '01',
-    anchor: 'college-application',
-    title: 'College Application Consulting',
-    target: 'Grade 11 High School Students',
-    description:
-      'Full-cycle admissions strategy — from building your college list to submitting every application. We craft a narrative that sets you apart in the most competitive applicant pools in the world.',
-    items: ['College list strategy', 'Common App review', 'Personal Statement + Supplement Essays'],
+    "number": "01",
+    "anchor": "admissions-roadmap",
+    "title": "Personalized Admissions Roadmap",
+    "target": "Grades 7–11",
+    "description": "More information rarely means more clarity. What your student needs is a tailored, actionable plan.",
+    "items": [
+      "Document Review",
+      "Parent & Student Interview",
+      "Strategy Consultation",
+      "Your Personalized Roadmap"
+    ]
   },
   {
-    number: '02',
-    anchor: 'essay-consulting',
-    title: 'Essay Consulting',
-    target: 'Grade 11 · Essay-Only Option',
-    description:
-      'Already have your college list? We focus exclusively on writing the essays that matter most. Every draft is built around your voice — not a template.',
-    items: ['Supplement Essays for every college', 'Multiple revision rounds', 'Flexible scope by college'],
+    "number": "02",
+    "anchor": "college-application",
+    "title": "College Application Consulting",
+    "target": "For Students in Grades 11–12",
+    "description": "Comprehensive admissions guidance—from building a balanced college list to preparing applications and navigating post-submission requirements. We help students identify their strengths and present their experiences, interests, and goals with clarity and authenticity.",
+    "items": [
+      "Application Eligibility & Requirements Review",
+      "College List Development & Strategy",
+      "Application Planning & Review",
+      "Personal Statement & Supplemental Essay Coaching",
+      "Post-Submission Guidance & Follow-Up Support"
+    ]
   },
   {
-    number: '03',
-    anchor: 'boarding-school',
-    title: 'Boarding School Consulting',
-    target: 'Grades 7–9',
-    description:
-      'Applying to Exeter, Andover, or Choate? We support the full application — from school list to student essays to Parent Essay — for students and families together.',
-    items: ['School Lists & Positioning', "Candidate's application review", 'Candidate & Parent Essay', 'Portfolio Review', 'Interview preparation'],
+    "number": "03",
+    "anchor": "essay-consulting",
+    "title": "College Essay Consulting",
+    "target": "Grades 11–12 · Essay-Only Support",
+    "description": "Already have your college list? We help you develop and refine the essays for your chosen colleges, keeping your experiences, ideas, and authentic voice at the heart of every draft. Personalized guidance—not a one-size-fits-all template.",
+    "items": [
+      "Supplemental Essay Support for Each College",
+      "Multiple Rounds of Feedback and Revision",
+      "Flexible Packages Based on Your College List"
+    ]
   },
+  {
+    "number": "04",
+    "anchor": "boarding-school",
+    "title": "Boarding School Consulting",
+    "target": "Grades 7–9",
+    "description": "Personalized guidance across a broad range of boarding schools—from highly selective institutions to schools offering a strong balance of academic challenge and individualized support. We help families find the right fit for each student’s strengths, interests, and goals, with support from school selection through application preparation and final submission.",
+    "items": [
+      "School Lists & Positioning",
+      "Candidate’s Application Review",
+      "Student & Parent Statements",
+      "Portfolio Review",
+      "Interview Preparation"
+    ]
+  }
 ]
 
 export default function ServicesSection() {
@@ -46,7 +72,7 @@ export default function ServicesSection() {
         </ScrollReveal>
 
         <ScrollReveal stagger>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
             {services.map((s) => (
               <Link
                 key={s.title}

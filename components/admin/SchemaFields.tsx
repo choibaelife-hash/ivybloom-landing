@@ -14,6 +14,7 @@ import {
 import s from "./local-studio.module.css";
 import HelpTip from "./HelpTip";
 import { optimizeCover } from "@/lib/admin/image-client";
+import { articleCategoryLabel, isLegacyArticleCategory } from "@/lib/editorial/categories";
 export type MediaContext = {
   source: Source;
   title?: string;
@@ -458,6 +459,9 @@ export function SchemaField({
         onChange={(e) => onChange(e.target.value)}
       >
         <option value="">선택하세요</option>
+        {field.name === "category" && isLegacyArticleCategory(value) && (
+          <option value={value}>{articleCategoryLabel(value)} (기존 분류)</option>
+        )}
         {field.options.list.map((item) => {
           const v = typeof item === "string" ? item : item.value;
           return (

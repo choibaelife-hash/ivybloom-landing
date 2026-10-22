@@ -136,10 +136,10 @@ export function aboutPageSchema() {
       founder: {
         '@type': 'Person',
         name: '김소희',
-        alternateName: 'Sohee Kim',
+        alternateName: 'Sarah Kim',
         jobTitle: 'US College Admissions Consultant',
         description:
-          '7년째 미국 대학 전문 입시컨설턴트로 활동 중. Sohee Kim has been a specialist US college admissions consultant for 7 years, guiding students through the full application process from school list strategy to essay development.',
+          '10년째 미국 대학 전문 입시컨설턴트로 활동 중. Sarah Kim has been a specialist US college admissions consultant for 10 years, guiding students through the full application process from school list strategy to essay development.',
         worksFor: {
           '@type': 'EducationalOrganization',
           name: 'IVY BLOOM CONSULTING',

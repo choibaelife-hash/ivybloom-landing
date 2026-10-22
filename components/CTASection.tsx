@@ -22,7 +22,7 @@ export default function CTASection() {
             rel="noopener noreferrer"
             className="inline-block bg-brand-cream text-brand-burgundy font-semibold px-10 py-4 rounded-sm hover:bg-brand-rose hover:text-brand-cream transition-colors text-sm tracking-wide"
           >
-            Free Consulting
+            Free Inquiry
           </a>
         </ScrollReveal>
       </div>
