@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import { Playfair_Display } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
+
+const GA_ID = 'G-V2K016FL3J'
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -49,7 +52,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={playfair.variable}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        {children}
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+        <Script id="ga4" strategy="afterInteractive">
+          {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+        </Script>
+      </body>
     </html>
   )
 }

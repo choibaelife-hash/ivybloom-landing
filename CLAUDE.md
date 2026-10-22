@@ -16,7 +16,7 @@
 - 범위: 로컬 코드와 검증만. 커밋·푸시·배포·운영 CMS 쓰기는 수행하지 않는다. 기존 Formspree 미연결은 별도 사항이다.
 - 상태: 37건 로컬 반영·검증 완료. 2026-10-22 사용자 요청으로 커밋·푸시(main) 진행. 운영 CMS 변경 없음.
 - 2026-10-22 배포: GitHub 푸시는 내 계정 `ivybloom-landing`에만 자동 배포됨(고객 프로젝트는 Git 미연결). 고객 계정 CLI 로그인(별도 global-config)으로 `ivybloom-consulting`에 `vercel deploy --prod` → Ready, 두 도메인 alias. 단 도메인이 Namecheap WHOIS 연락처 미인증으로 정지 상태(NS가 `failed-whois-verification.namecheap.com`/`verify-contact-details.namecheap.com`, A가 198.54.117.242 안내 페이지). 고객이 등록자 이메일 인증 후 기존 A/CNAME 복구 확인 필요. Search Console 인증도 그 이후.
-- 2026-10-22 도메인 복구 확인: NS `dns1/dns2.registrar-servers.com`, A 216.150.1.1/216.150.16.1, www CNAME Vercel. 두 주소 HTTPS 200(인증서 CN=ivybloomconsulting.com, 2027-01-09 만료), http→https 이동, 최신 배포(분류 4개·About 수정) 표시, sitemap.xml/robots.txt/studio 200. 단 www가 기본 주소로 리디렉션되지 않고 canonical 태그도 없음. 다음: 고객 계정 Search Console(HTML 태그) 등록·사이트맵 제출.
+- 2026-10-22 도메인 복구 확인: NS `dns1/dns2.registrar-servers.com`, A 216.150.1.1/216.150.16.1, www CNAME Vercel. 두 주소 HTTPS 200(인증서 CN=ivybloomconsulting.com, 2027-01-09 만료), http→https 이동, 최신 배포(분류 4개·About 수정) 표시, sitemap.xml/robots.txt/studio 200. 사용자 요청으로 고객 Vercel 도메인 설정에서 www → `ivybloomconsulting.com` 308 이동 설정·확인. 고객 계정 Search Console(URL 접두어, HTML 태그 `h-mWOf…`) 인증 태그 배포(e7dff76), sitemap.xml 제출 직후 "가져올 수 없음" 표시(파일은 정상). `/articles`에 noindex 샘플 글 "[Sample Draft] …" 공개 노출 중 — 고객이 내릴지 결정 필요.
 - 2026-10-22 분류: 사용자 요청으로 글 분류에서 Other 제거 → 4개(story/college/boarding/consultation). 기존 other 값은 데이터 유지, 라벨 "Other"로 All에서만 표시, 관리자 저장 허용. `tools/generate-admin-schema.mjs`는 `ARTICLE_CATEGORIES.map`을 해석 못해 분류 목록을 지우므로 `lib/admin/schema.json`은 수동 수정함. Sanity 프로젝트 `16s9d1s4`("Ivy Bloom Consulting")는 고객 조직 `ouh8f8aa3`에 있음. Studio는 사이트 내장(`/studio`)이라 Sanity Studios 목록에 없음 → 도메인 복구 후 "Add missing studio by URL"로 등록.
 - 2026-10-22 추가: About 4번 사례의 설명용 교실 이미지·캡션 삭제(고객에게 사용할 이미지 자료 요청 예정). About 서비스 카드 02 College Application만 `Grade 11`로 표기, 나머지 Grades 11–12 표기는 고객 요청 범위가 아니라 유지.
 - 반영 내역: 1–4 홈 문제 설명, 5–8 홈 4개 서비스, 9–14 홈/About 공통 FAQ, 15–17 Sarah Kim/학력 문구 삭제, 18–21 사례 수정·4번째 사례/설명용 이미지, 22–25 About 4개 서비스, 26–30 온라인 진행 절차/10년 경력, 31–35 서비스 상세 4개/이미지 번호/바로가기, 36 글 분류, 37 문의 선택지.
@@ -74,7 +74,7 @@
 - [ ] **structured-data.ts 전화번호 오류** — [lib/structured-data.ts:103](lib/structured-data.ts:103) `telephone: '+15706778811'`은 잘못된 번호. 실제 번호는 `+82-10-7188-8111` (아래 NAP 참고). 수정 필요.
 - [ ] **`/blog` vs `/articles` 중복** — 두 라우트가 거의 동일한 코드(각 144줄, 구조 동일). 의도된 중복인지, 하나로 정리해야 하는지 확인 필요.
 - [ ] **`lang="ko"` vs 실제 콘텐츠 영어** — [app/layout.tsx:49](app/layout.tsx:49) `<html lang="ko">`인데 사이트 본문은 전부 영어. 한국어 전환 여부 미정 (아래 "한국어 전환 검토" 참고).
-- [ ] **GA4 / Search Console 미연동** — 코드베이스에서 확인 안 됨 (CLAUDE.md 코딩 규칙엔 명시돼 있으나 실제 구현 없음).
+- [x] **GA4 / Search Console 연동** — 2026-10-22 고객 계정 기준. Search Console 인증(메타 태그), GA4 `G-V2K016FL3J`(고객 GA 계정 ivyjennie의 IVY BLOOM 속성)를 `app/layout.tsx`에 `next/script`로 설치.
 
 ### 한국어 전환 검토 (보류 중)
 - `/services`, `/about` 한국어 번역 비공개 미리보기 아티팩트로 검토 완료 (실제 코드 미반영, 사이트는 여전히 영어).
