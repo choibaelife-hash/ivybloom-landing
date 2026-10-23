@@ -9,7 +9,7 @@ import { buildSchemaOrgJsonLd } from '@/lib/structured-data'
 import { articleUrl, canonicalUrl, firstText, safeJsonLd, validRelatedPosts } from '@/lib/editorial/public-post'
 import type { PublicPost } from '@/lib/editorial/public-post'
 
-const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
+const INQUIRY_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfVtm8dz7fkAIu_1aRSAdoWOlQoBES_5RwAHAmrHxCIzY7Kkg/viewform'
 
 const portableComponents: PortableTextComponents = {
   types: {
@@ -135,7 +135,7 @@ export function PostArticle({ post }: { post: PublicPost }) {
       </main>
       <Footer />
       <a
-        href={KAKAO_URL}
+        href={INQUIRY_URL}
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 bg-brand-burgundy text-brand-cream text-sm px-5 py-3 rounded-full shadow-lg hover:bg-brand-dark transition-colors"

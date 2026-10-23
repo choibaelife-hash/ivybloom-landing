@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
+const INQUIRY_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfVtm8dz7fkAIu_1aRSAdoWOlQoBES_5RwAHAmrHxCIzY7Kkg/viewform'
 
 export default function Hero() {
   return (
@@ -62,7 +62,7 @@ export default function Hero() {
         {/* 하단 버튼 — 발 아래 */}
         <div className="ivy-cta relative flex flex-wrap justify-center gap-4 pb-12 px-6">
           <a
-            href={KAKAO_URL}
+            href={INQUIRY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-brand-cream text-brand-burgundy font-semibold px-10 py-4 rounded-sm hover:bg-brand-rose hover:text-brand-cream transition-colors text-sm tracking-wider"

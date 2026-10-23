@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 
-const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
+const INQUIRY_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfVtm8dz7fkAIu_1aRSAdoWOlQoBES_5RwAHAmrHxCIzY7Kkg/viewform'
 
 const links = [
   { href: '/',         label: 'Home'     },
@@ -35,7 +35,7 @@ export default function Nav() {
             </Link>
           ))}
           <a
-            href={KAKAO_URL}
+            href={INQUIRY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-brand-burgundy text-brand-cream text-sm px-5 py-2 rounded hover:bg-brand-dark transition-colors"
@@ -73,7 +73,7 @@ export default function Nav() {
             </Link>
           ))}
           <a
-            href={KAKAO_URL}
+            href={INQUIRY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-brand-burgundy text-brand-cream text-sm px-5 py-2 rounded text-center"

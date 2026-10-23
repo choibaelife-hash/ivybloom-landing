@@ -1,6 +1,6 @@
 import ScrollReveal from '@/components/ScrollReveal'
 
-const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
+const INQUIRY_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfVtm8dz7fkAIu_1aRSAdoWOlQoBES_5RwAHAmrHxCIzY7Kkg/viewform'
 
 export default function CTASection() {
   return (
@@ -17,7 +17,7 @@ export default function CTASection() {
             Start with a consultation and take the first step toward your target school.
           </p>
           <a
-            href={KAKAO_URL}
+            href={INQUIRY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block bg-brand-cream text-brand-burgundy font-semibold px-10 py-4 rounded-sm hover:bg-brand-rose hover:text-brand-cream transition-colors text-sm tracking-wide"
