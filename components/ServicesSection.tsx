@@ -20,7 +20,7 @@ const services = [
     "number": "02",
     "anchor": "college-application",
     "title": "College Application Consulting",
-    "target": "For Students in Grades 11–12",
+    "target": "Grades 11 12",
     "description": "Comprehensive admissions guidance—from building a balanced college list to preparing applications and navigating post-submission requirements. We help students identify their strengths and present their experiences, interests, and goals with clarity and authenticity.",
     "items": [
       "Application Eligibility & Requirements Review",

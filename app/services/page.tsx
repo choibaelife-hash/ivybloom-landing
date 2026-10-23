@@ -6,13 +6,55 @@ import FAQ from '@/components/FAQ'
 import type { FaqItem } from '@/lib/structured-data'
 
 const serviceFaqs: FaqItem[] = [
-  { question: 'Is there consulting available for younger students?', answer: '' },
-  { question: 'How long does the consulting process take?', answer: '' },
-  { question: 'How many schools does College Essay Consulting cover?', answer: '' },
-  { question: 'How many sessions does consulting involve? Is there a limit?', answer: '' },
-  { question: 'When do US boarding school applications open — and how early should we start preparing?', answer: '' },
-  { question: 'Can my child apply to boarding school without an SSAT score?', answer: '' },
-  { question: 'How do boarding school interviews work, and how should we prepare?', answer: '' },
+  {
+    question: 'Is there consulting available for younger students?',
+    answer: 'Our consulting services are available for students in Grade 7 and above.',
+  },
+  {
+    question: 'How long does the consulting process take?',
+    answer:
+      'The timeline depends on the specific service you select:\n\n' +
+      '• Comprehensive Admissions & Essay Consulting (U.S. College & Boarding School):\nServices begin immediately upon enrollment and continue until all final admissions decisions are released for the schools in your consulting package.\n\n' +
+      '• Personalized Admissions Roadmap:\nThis is a standalone, targeted planning service. We conduct an in-depth review of the student’s academic profile, hold separate student and parent interviews, and perform customized school research. Based on these insights, we meet with your family to present our findings and deliver a comprehensive Roadmap Report—complete with actionable recommendations, strategic priorities, and a structured preparation timeline.\n\n' +
+      '(Please note: This service concludes upon delivery and review of the final report and does not include ongoing application guidance.)',
+  },
+  {
+    question: 'How many schools does College Essay Consulting cover?',
+    answer:
+      'Our College Essay Consulting service covers applications to 5–15 schools. Fees vary based on the total number of essays required by the schools on your list.',
+  },
+  {
+    question: 'How many consulting sessions are included? Is there a limit?',
+    answer:
+      'For our comprehensive admissions and essay consulting services, there is no set cap on the number of sessions during the agreed service period. Rather than restricting students to a fixed number of hours, we schedule meetings on an as-needed basis to ensure thorough support at every key milestone.\n\n' +
+      'Meeting frequency naturally varies depending on the student’s individual timeline and application deadlines. Throughout the process, we maintain close, regular communication with both students and parents to track progress, resolve questions, and guide strategic decisions—all aligned with the scope of your selected package.',
+  },
+  {
+    question: 'When do US boarding school applications open — and how early should we start preparing?',
+    answer:
+      'While official application portals typically open between July and early fall prior to the entry year, an effective admissions strategy begins much earlier. We generally recommend the following timeline:\n\n' +
+      '• Spring (March–April): School Research & List Building\nBegin researching prospective schools, reviewing requirements, and building a balanced, tailored school list.\n\n' +
+      '• Summer: Test Prep & Portfolio Development\nUse this critical window to focus on SSAT (or other standardized tests) and develop arts portfolios or academic supplements to showcase your student’s unique strengths.\n\n' +
+      '• Early Fall (September–November): Testing Wrap-up & Application Execution\nAim to achieve target test scores by October or November. Essay drafting and interview preparation should run concurrently with testing rather than waiting until scores are finalized.\n\n' +
+      'We actively tailor this timeline to align with each student’s unique profile, starting point, and specific school deadlines.',
+  },
+  {
+    question: 'Can my child apply to boarding school without an SSAT score?',
+    answer:
+      'Yes, it depends on the school. While the SSAT has traditionally been standard, many boarding schools now adopt test-optional policies or accept alternative standardized assessments (such as the ISEE, PSAT, or state testing). We review each target school’s current testing requirements before advising on whether standardized testing is necessary or advantageous for your child.\n\n' +
+      'Where scores are submitted, admissions committees evaluate them as one component of holistic review to assess academic readiness—never as a standalone measure of potential. Our focus extends beyond merely securing an offer: we guide families toward schools that genuinely match the student’s strengths, academic profile, and learning environment, ensuring they step onto campus prepared and confident.',
+  },
+  {
+    question: 'How do boarding school interviews work, and how should we prepare?',
+    answer:
+      'Boarding school interviews are conversational dialogues designed to understand who your child is beyond grades and test scores. Admissions officers look for curiosity, character, and school fit. In most cases, the session includes a one-on-one conversation with the student, followed by a brief discussion with parents. Interviews may be conducted on campus during a school tour or virtually via Zoom.\n\n' +
+      'How to prepare effectively:\n' +
+      '• Reflect over memorizing: Rather than rehearsing scripted answers, students should practice articulating their passions, meaningful experiences, and reasons for applying in a genuine, natural voice.\n' +
+      '• Conduct in-depth school research: Admissions teams want to see authentic interest. Students should prepare thoughtful, specific questions that reflect real curiosity about campus culture and programs.\n' +
+      '• Simulate through mock interviews: Guided practice helps alleviate anxiety, sharpen communication skills, and build conversational poise.\n' +
+      '• Prepare the environment (for virtual interviews): Test technology beforehand and ensure a quiet, well-lit, and professional space.\n\n' +
+      'We recommend reviewing each school’s interview policies and scheduling early in the fall, as interview slots at top schools fill up quickly.',
+  },
 ]
 import AnimateOnScroll from '@/components/AnimateOnScroll'
 
@@ -227,7 +269,7 @@ export default function ServicesPage() {
               Our Services
             </h1>
             <p className="animate-fade-up-d2 text-brand-cream/80 text-sm sm:text-base max-w-lg leading-relaxed">
-              Personalized consulting for every stage of the US admissions journey — from middle school boarding schools to top university applications.
+              Personalized guidance at every stage of the U.S. admissions journey—from boarding school admissions to college applications.
             </p>
           </div>
         </div>

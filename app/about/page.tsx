@@ -208,15 +208,13 @@ export default function AboutPage() {
                     <p className="text-xs text-brand-dark/50 uppercase tracking-wider mb-1">Outcome</p>
                     <p className="text-sm font-semibold text-brand-dark">{c.outcome}</p>
                   </div>
-                  {c.slug ? (
+                  {c.slug && (
                     <Link
                       href={`/articles/${c.slug}`}
                       className="text-xs text-brand-burgundy hover:text-brand-dark transition-colors underline underline-offset-2"
                     >
                       Full Story →
                     </Link>
-                  ) : (
-                    <span className="text-xs text-brand-dark/25">Full story coming soon</span>
                   )}
                 </div>
               ))}

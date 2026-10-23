@@ -14,7 +14,7 @@ export default function CTASection() {
             Ready to Begin Your Journey?
           </h2>
           <p className="text-brand-cream/70 mb-10 max-w-md mx-auto">
-            Start with a consultation and take the first step toward your target school.
+            Schedule a consultation and take the first step toward your dream school.
           </p>
           <a
             href={INQUIRY_URL}

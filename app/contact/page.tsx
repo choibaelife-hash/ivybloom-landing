@@ -143,7 +143,7 @@ export default function ContactPage() {
                   <select id="service-interest" name="service" className={inputCls}>
                     <option value="">Select</option>
                     <option value="roadmap">A Personalized Admissions Roadmap</option>
-                    <option value="boarding">U.S. Boarding School Admission Consulting</option>
+                    <option value="boarding">Boarding School Admission Consulting</option>
                     <option value="college">College Admission Consulting</option>
                     <option value="essay">College Essay Consulting</option>
                   </select>

@@ -8,6 +8,11 @@
 
 ## 🔄 진행 상황 & 다음 세션 체크리스트
 
+### 2026-10-23 고객 수정 요청 2차 14건
+- 원문: `/Users/km/Downloads/ivy-site_revision-수정요청 (3).md`. Free Inquiry 버튼 전부(Nav·Hero·CTA·Services·글 상세)를 구글 폼 공개 주소(`forms/d/e/1FAIpQLSfVtm8…/viewform`)로 연결, Footer에 "Inquiry" 링크 추가(KakaoTalk 유지).
+- 홈 02번 대상 문구 "Grades 11 12"(사용자 판단: 대시 제거, 원 친 줄 전체 교체). Services 상단 문구 교체, Services FAQ 7개 답변 입력(8번 질문 문구도 변경), 공통 CTA 문구 "Schedule a consultation… dream school."(홈·About 공통), 문의 폼 "Boarding School Admission Consulting". About 사례 "Full story coming soon" 제거(slug 있으면 Full Story 링크는 표시).
+- 배포 방식: 커밋 후 `git archive HEAD` 사본 + `.vercel`로 고객 계정 CLI(`vercel deploy --prod`) 배포 — 고객 Vercel에 내 이름·커밋 정보 남기지 않음.
+
 ### 2026-10-21 고객 수정 요청 37건 — 로컬 반영 작업
 - 원문: `/Users/km/Downloads/ivy-site_revision-수정요청 (2).md`. 사용자가 37건 전체와 제안한 6가지 정리 방향을 승인함.
 - 기준: 대학 지원·에세이는 Grades 11–12, 상담은 온라인, 사례의 학생 대명사는 he/his. 신규 사례와 로드맵에는 학생을 특정하지 않는 설명용 이미지를 사용. 무료 문의와 유료 상세 상담을 구분. 기존 글과 원격 데이터는 보존하며 분류 표시를 정리한다.

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 
 const KAKAO_URL = 'https://pf.kakao.com/_pxeZhs'
+const INQUIRY_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfVtm8dz7fkAIu_1aRSAdoWOlQoBES_5RwAHAmrHxCIzY7Kkg/viewform'
 const INSTAGRAM_URL = 'https://www.instagram.com/ivybloom7188'
 const YOUTUBE_URL = 'https://www.youtube.com/@ivybloom_admission'
 
@@ -24,6 +25,14 @@ export default function Footer() {
             className="text-brand-cream/50 text-xs hover:text-brand-rose transition-colors"
           >
             KakaoTalk
+          </a>
+          <a
+            href={INQUIRY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand-cream/50 text-xs hover:text-brand-rose transition-colors"
+          >
+            Inquiry
           </a>
           <div className="flex items-center gap-3">
             <a
